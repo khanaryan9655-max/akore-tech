@@ -2,866 +2,670 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>AKORE TECH — Intelligent Automation & Custom Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AKORE TECH — Infinite Core Systems | Automation & Custom Tools</title>
+  <meta name="description" content="AKORE TECH builds custom Python automation, Excel/VBA MIS dashboards, retail billing apps, and ATS resumes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-primary: #050A18;
-      --bg-card: #0B132B;
-      --bg-card-hover: #111C3D;
-      --border-subtle: rgba(0, 229, 255, 0.16);
-      --border-strong: rgba(0, 229, 255, 0.45);
-      --cyan: #00E5FF;
-      --blue: #2563EB;
-      --text-main: #F8FAFC;
-      --text-muted: #94A3B8;
-      --text-dim: #64748B;
-      --success: #10B981;
-      --danger: #EF4444;
+      --bg-dark: #06131c;
+      --bg-card: #0b1d2a;
+      --bg-card-hover: #102738;
+      --border: #17364c;
+      --cyan: #22d3ee;
+      --teal: #14b8a6;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --danger: #f87171;
+      --success: #34d399;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      background:
-        radial-gradient(circle at 85% 8%, rgba(0, 229, 255, 0.08), transparent 38%),
-        radial-gradient(circle at 12% 35%, rgba(37, 99, 235, 0.10), transparent 42%),
-        var(--bg-primary);
-      line-height: 1.55;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    h1, h2, h3, .brand-font { font-family: 'Space Grotesk', sans-serif; }
 
     .container {
       width: 100%;
-      max-width: 720px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 0 18px;
+      padding: 0 20px;
     }
 
-    /* Sticky Navbar */
+    /* Header */
     header {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(5, 10, 24, 0.88);
+      z-index: 50;
+      background: rgba(6, 19, 28, 0.92);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 68px;
     }
 
-    .brand {
+    .logo-wrap {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      text-decoration: none;
     }
 
-    .brand-text {
+    .logo-svg {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+    }
+
+    .logo-text-group {
       display: flex;
       flex-direction: column;
+    }
+
+    .logo-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #ffffff;
       line-height: 1.1;
     }
 
-    .brand-title {
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: #FFFFFF;
-    }
-
-    .brand-sub {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+    .logo-sub {
+      font-size: 0.64rem;
+      letter-spacing: 0.16em;
       color: var(--cyan);
-      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 2px;
     }
 
     .nav-cta {
-      background: rgba(0, 229, 255, 0.12);
-      border: 1px solid var(--border-strong);
+      background: rgba(34, 211, 238, 0.12);
       color: var(--cyan);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 8px 14px;
+      border: 1px solid rgba(34, 211, 238, 0.4);
+      padding: 9px 16px;
       border-radius: 999px;
-      transition: all 0.2s ease;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.2s;
     }
 
-    .nav-cta:active {
-      transform: scale(0.97);
+    .nav-cta:hover {
+      background: var(--cyan);
+      color: #041017;
     }
 
-    /* Hero Section */
+    /* Hero */
     .hero {
-      padding: 36px 0 28px;
+      padding: 56px 0 44px;
+      background: radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.12), transparent 65%);
     }
 
-    .status-pill {
+    .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(0, 229, 255, 0.08);
-      border: 1px solid var(--border-subtle);
-      color: var(--cyan);
-      font-size: 11px;
+      background: rgba(20, 184, 166, 0.12);
+      border: 1px solid rgba(20, 184, 166, 0.35);
+      color: #5eead4;
+      font-size: 0.78rem;
       font-weight: 600;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 999px;
       margin-bottom: 18px;
-      letter-spacing: 0.03em;
     }
 
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 8px var(--cyan);
-    }
-
-    h1 {
-      font-size: 31px;
-      font-weight: 800;
+    .hero h1 {
+      font-size: 2.15rem;
       line-height: 1.18;
+      margin-bottom: 16px;
       letter-spacing: -0.02em;
-      margin-bottom: 14px;
     }
 
-    .gradient-text {
-      background: linear-gradient(90deg, #FFFFFF 0%, #00E5FF 65%, #38BDF8 100%);
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--cyan), var(--teal));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .hero-desc {
-      font-size: 15px;
+    .hero p {
       color: var(--text-muted);
-      margin-bottom: 24px;
+      font-size: 1.02rem;
+      max-width: 620px;
+      margin-bottom: 28px;
     }
 
-    .hero-actions {
+    .btn-group {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
     .btn-primary {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      width: 100%;
-      padding: 15px 20px;
+      background: linear-gradient(135deg, var(--cyan), var(--teal));
+      color: #041017;
+      font-weight: 700;
+      font-size: 0.96rem;
+      padding: 14px 22px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #00E5FF 0%, #0284C7 100%);
-      color: #030712;
-      font-size: 15px;
-      font-weight: 800;
+      text-decoration: none;
       border: none;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(0, 229, 255, 0.22);
-      transition: transform 0.15s ease;
+      transition: transform 0.15s, opacity 0.2s;
     }
 
-    .btn-primary:active {
-      transform: scale(0.98);
-    }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
 
     .btn-secondary {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
-      padding: 14px 20px;
-      border-radius: 12px;
       background: var(--bg-card);
       color: var(--text-main);
-      font-size: 14px;
-      font-weight: 700;
-      border: 1px solid var(--border-subtle);
-    }
-
-    /* Metrics Strip */
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 26px;
-    }
-
-    .metric-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 14px 22px;
       border-radius: 12px;
-      padding: 12px 10px;
-      text-align: center;
+      text-decoration: none;
     }
 
-    .metric-val {
-      font-size: 18px;
-      font-weight: 800;
+    /* Section */
+    section { padding: 48px 0; }
+
+    .section-label {
       color: var(--cyan);
-    }
-
-    .metric-lbl {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    /* Section Commons */
-    section {
-      padding: 32px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .sec-tag {
-      font-size: 11px;
+      font-size: 0.78rem;
       font-weight: 700;
-      text-transform: uppercase;
       letter-spacing: 0.14em;
-      color: var(--cyan);
-      margin-bottom: 6px;
-    }
-
-    h2 {
-      font-size: 23px;
-      font-weight: 800;
+      text-transform: uppercase;
       margin-bottom: 8px;
-      letter-spacing: -0.01em;
     }
 
-    .sec-sub {
-      font-size: 14px;
+    .section-title {
+      font-size: 1.65rem;
+      margin-bottom: 10px;
+    }
+
+    .section-desc {
       color: var(--text-muted);
-      margin-bottom: 20px;
+      font-size: 0.95rem;
+      margin-bottom: 26px;
     }
 
-    /* Before vs After Simulator */
-    .sim-tabs {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .sim-tab {
+    /* Interactive Demo Box */
+    .demo-box {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+    }
+
+    .tab-btn {
+      background: #071620;
       color: var(--text-muted);
-      padding: 10px 8px;
+      border: 1px solid var(--border);
+      padding: 9px 14px;
       border-radius: 10px;
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 0.85rem;
+      font-weight: 600;
       cursor: pointer;
-      text-align: center;
-      transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
-    .sim-tab.active {
-      background: rgba(0, 229, 255, 0.14);
+    .tab-btn.active {
+      background: rgba(34, 211, 238, 0.14);
+      color: var(--cyan);
       border-color: var(--cyan);
-      color: #FFFFFF;
     }
 
-    .sim-grid {
+    .compare-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 12px;
+      gap: 14px;
     }
 
-    .sim-card {
-      border-radius: 14px;
-      padding: 16px;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .sim-before {
-      background: rgba(239, 68, 68, 0.06);
-      border-color: rgba(239, 68, 68, 0.28);
-    }
-
-    .sim-after {
-      background: rgba(0, 229, 255, 0.07);
-      border-color: var(--border-strong);
-    }
-
-    .sim-badge {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 3px 8px;
-      border-radius: 6px;
-      margin-bottom: 8px;
-    }
-
-    .badge-red {
-      background: rgba(239, 68, 68, 0.18);
-      color: #FCA5A5;
-    }
-
-    .badge-cyan {
-      background: rgba(0, 229, 255, 0.18);
-      color: var(--cyan);
-    }
-
-    .sim-time {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 4px;
-    }
-
-    .sim-text {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* Capabilities Cards */
-    .cards-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .cap-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
+    .compare-card {
+      border-radius: 12px;
       padding: 18px;
+      border: 1px solid var(--border);
     }
 
-    .cap-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
+    .compare-before {
+      background: rgba(248, 113, 113, 0.05);
+      border-color: rgba(248, 113, 113, 0.25);
     }
 
-    .cap-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: #FFFFFF;
+    .compare-after {
+      background: rgba(52, 211, 153, 0.06);
+      border-color: rgba(52, 211, 153, 0.3);
     }
 
-    .cap-chip {
-      font-size: 11px;
+    .pill {
+      display: inline-block;
+      font-size: 0.72rem;
       font-weight: 700;
-      color: var(--cyan);
-      background: rgba(0, 229, 255, 0.1);
-      padding: 3px 9px;
+      padding: 3px 10px;
       border-radius: 999px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
-    .cap-desc {
-      font-size: 13.5px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
+    .pill-before { background: rgba(248, 113, 113, 0.15); color: var(--danger); }
+    .pill-after { background: rgba(52, 211, 153, 0.15); color: var(--success); }
+
+    .compare-card h4 { font-size: 1.05rem; margin-bottom: 6px; }
+    .compare-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
 
-    .cap-link {
-      font-size: 12.5px;
-      font-weight: 700;
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      transition: 0.2s;
+    }
+
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(34, 211, 238, 0.45);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 { font-size: 1.12rem; }
+
+    .tag {
+      font-size: 0.74rem;
+      font-weight: 600;
       color: var(--cyan);
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 14px;
+    }
+
+    .card-link {
+      color: var(--cyan);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
 
-    /* Case Studies */
-    .case-card {
-      background: linear-gradient(145deg, #0B132B 0%, #091024 100%);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 18px;
-    }
-
-    .case-tag {
-      font-size: 11px;
-      font-weight: 700;
-      color: #38BDF8;
-      margin-bottom: 4px;
-    }
-
-    .case-title {
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    .case-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .case-result {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--success);
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.25);
+    .metric-badge {
       display: inline-block;
-      padding: 4px 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--success);
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      padding: 5px 11px;
       border-radius: 8px;
     }
 
-    /* Process Steps */
-    .step-row {
-      display: flex;
-      gap: 14px;
+    /* Lead Form */
+    .form-box {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
     }
 
-    .step-num {
-      width: 34px;
-      height: 34px;
-      flex-shrink: 0;
-      border-radius: 10px;
-      background: rgba(0, 229, 255, 0.14);
-      border: 1px solid var(--border-strong);
-      color: var(--cyan);
-      font-weight: 800;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .step-title {
-      font-size: 15px;
-      font-weight: 800;
-      margin-bottom: 2px;
-    }
-
-    .step-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* WhatsApp Brief Builder Form */
-    .brief-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-strong);
-      border-radius: 16px;
-      padding: 20px 16px;
-    }
-
-    .field-group {
-      margin-bottom: 14px;
-    }
-
-    label {
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
       display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
+      font-size: 0.86rem;
+      font-weight: 600;
       margin-bottom: 6px;
+      color: #cbd5e1;
     }
 
-    input, select, textarea {
+    .form-control {
       width: 100%;
-      background: #050A18;
-      border: 1px solid var(--border-subtle);
+      background: #06131c;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 12px 14px;
       border-radius: 10px;
-      padding: 12px 13px;
-      color: #FFFFFF;
-      font-size: 14px;
+      font-size: 0.95rem;
       font-family: inherit;
-      outline: none;
     }
 
-    input:focus, select:focus, textarea:focus {
+    .form-control:focus {
+      outline: none;
       border-color: var(--cyan);
     }
 
-    textarea {
-      resize: vertical;
-      min-height: 78px;
-    }
-
-    .direct-row {
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      text-align: center;
-    }
-
-    .direct-note {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
     footer {
-      padding: 26px 0 38px;
+      border-top: 1px solid var(--border);
+      padding: 28px 0 40px;
       text-align: center;
-      font-size: 12px;
-      color: var(--text-dim);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      font-size: 0.85rem;
     }
 
-    @media (min-width: 600px) {
-      h1 { font-size: 38px; }
-      .hero-actions { flex-direction: row; }
-      .sim-grid { grid-template-columns: 1fr 1fr; }
+    @media (min-width: 768px) {
+      .hero h1 { font-size: 3rem; }
+      .btn-group { flex-direction: row; }
+      .compare-grid { grid-template-columns: 1fr 1fr; }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header with Infinite Core SVG Logo -->
+  <!-- Navigation -->
   <header>
     <div class="container nav-inner">
-      <a href="#" class="brand">
-        <svg width="38" height="38" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="AKORE TECH Logo">
+      <a href="#" class="logo-wrap">
+        <svg class="logo-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="coreGrad" x1="10" y1="15" x2="90" y2="85" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#38BDF8" />
-              <stop offset="50%" stop-color="#00E5FF" />
-              <stop offset="100%" stop-color="#2563EB" />
+            <linearGradient id="akGrad" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#22d3ee" />
+              <stop offset="100%" stop-color="#14b8a6" />
             </linearGradient>
           </defs>
-          <rect width="100" height="100" rx="22" fill="#09122B" stroke="#00E5FF" stroke-opacity="0.28" stroke-width="2" />
-          <!-- Geometric A -->
-          <path d="M50 18L24 80H35.5L50 43.5L64.5 80H76L50 18Z" fill="#1E293B" stroke="#38BDF8" stroke-width="2.5" stroke-linejoin="round" />
-          <!-- Infinity Loop -->
-          <path d="M30 57C20 57 14 50 14 43C14 36 20 30 28 30C37 30 44 43 50 43C56 43 63 30 72 30C80 30 86 36 86 43C86 50 80 57 70 57C61 57 55 47 50 43C45 47 39 57 30 57Z" stroke="url(#coreGrad)" stroke-width="5.5" stroke-linecap="round" />
-          <!-- Glowing Core Node -->
-          <circle cx="50" cy="43" r="6.5" fill="#00E5FF" />
-          <circle cx="50" cy="43" r="3" fill="#FFFFFF" />
+          <path d="M22 44C13.5 44 8 38.5 8 32C8 25.5 13.5 20 22 20C27.5 20 31.5 23.5 35.5 28L32 32L28.5 28C26 25.2 24.2 24 22 24C16.5 24 12.5 27.5 12.5 32C12.5 36.5 16.5 40 22 40C25 40 27.5 38.5 30 35.5L32 33L34 35.5C36.5 38.5 39 40 42 40C47.5 40 51.5 36.5 51.5 32C51.5 27.5 47.5 24 42 24C39.8 24 38 25.2 35.5 28L32 24C36 20.5 39 20 42 20C50.5 20 56 25.5 56 32C56 38.5 50.5 44 42 44C38 44 34.8 42.2 32 39C29.2 42.2 26 44 22 44Z" fill="url(#akGrad)" />
+          <path d="M32 10L19 52H24.5L32 26.5L39.5 52H45L32 10Z" fill="#e2e8f0" />
         </svg>
-        <div class="brand-text">
-          <span class="brand-title">AKORE TECH</span>
-          <span class="brand-sub">Infinite Core Systems</span>
+        <div class="logo-text-group">
+          <span class="logo-title brand-font">AKORE TECH</span>
+          <span class="logo-sub">INFINITE CORE SYSTEMS</span>
         </div>
       </a>
       <a href="#contact" class="nav-cta">Start Project</a>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <main class="container">
-    <section class="hero" style="border-top:none;">
-      <div class="status-pill">
-        <span class="pulse-dot"></span>
-        <span>Custom Automation • Zero Bloated Templates</span>
-      </div>
-      <h1>Automate Your Work.<br /><span class="gradient-text">Elevate Your Business.</span></h1>
-      <p class="hero-desc">
-        We convert hours of repetitive Excel reporting, messy data cleanup, and manual store operations into 10-second automated systems.
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="badge">● Mumbai &amp; Global Remote Delivery</div>
+      <h1>Automate Repetitive Work. <span>Scale With Precision.</span></h1>
+      <p>
+        We build custom Python automation scripts, one-click Excel/VBA MIS dashboards, smart retail billing &amp; inventory web apps, and ATS-ready corporate resumes.
       </p>
-      <div class="hero-actions">
-        <a href="https://wa.me/918928966120?text=Hi%20AKORE%20TECH%2C%20I%20visited%20your%20website%20and%20want%20a%20free%20automation%20consultation." target="_blank" rel="noopener" class="btn-primary">
-          Get Free Consultation →
-        </a>
-        <a href="#services" class="btn-secondary">Explore Capabilities</a>
+      <div class="btn-group">
+        <a href="#contact" class="btn-primary">Get a Free Workflow Quote →</a>
+        <a href="#demo" class="btn-secondary">See Before vs. After</a>
       </div>
+    </div>
+  </section>
 
-      <div class="metrics">
-        <div class="metric-box">
-          <div class="metric-val">90%+</div>
-          <div class="metric-lbl">Time Saved</div>
+  <!-- Interactive Before vs After -->
+  <section id="demo">
+    <div class="container">
+      <div class="section-label">Live Impact Preview</div>
+      <h2 class="section-title">Manual Chaos vs. AKORE Systems</h2>
+      <p class="section-desc">Tap a category below to see how we eliminate manual bottlenecks.</p>
+
+      <div class="demo-box">
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab('excel', this)">Excel &amp; VBA MIS</button>
+          <button class="tab-btn" onclick="switchTab('billing', this)">Retail Billing App</button>
+          <button class="tab-btn" onclick="switchTab('python', this)">Python Data Cleanup</button>
+          <button class="tab-btn" onclick="switchTab('resume', this)">ATS Resume Polish</button>
         </div>
-        <div class="metric-box">
-          <div class="metric-val">10 Sec</div>
-          <div class="metric-lbl">Report Runs</div>
-        </div>
-        <div class="metric-box">
-          <div class="metric-val">24×7</div>
-          <div class="metric-lbl">Core Uptime</div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Interactive Before vs After Simulator -->
-    <section id="impact">
-      <div class="sec-tag">Interactive Impact</div>
-      <h2>Before vs. After AKORE TECH</h2>
-      <p class="sec-sub">Tap a workflow below to see how custom automation replaces manual grind.</p>
-
-      <div class="sim-tabs">
-        <button type="button" class="sim-tab active" onclick="switchSim(0, this)">Excel & MIS</button>
-        <button type="button" class="sim-tab" onclick="switchSim(1, this)">Store Billing</button>
-        <button type="button" class="sim-tab" onclick="switchSim(2, this)">ATS Resume</button>
-      </div>
-
-      <div class="sim-grid">
-        <div class="sim-card sim-before">
-          <span class="sim-badge badge-red">Before AKORE TECH</span>
-          <div class="sim-time" id="beforeTime">3.5 Hours Daily</div>
-          <div class="sim-text" id="beforeDesc">Manual copy-paste across multiple Excel sheets, VLOOKUP errors, and late shift handovers.</div>
-        </div>
-        <div class="sim-card sim-after">
-          <span class="sim-badge badge-cyan">After AKORE TECH</span>
-          <div class="sim-time" id="afterTime">10 Seconds (1-Click)</div>
-          <div class="sim-text" id="afterDesc">Python & VBA macro automatically cleans raw exports, validates rows, and formats final MIS reports.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Core Capabilities -->
-    <section id="services">
-      <div class="sec-tag">Capabilities</div>
-      <h2>Engineered for Speed & Accuracy</h2>
-      <p class="sec-sub">No monthly SaaS lock-ins. Custom-built tools tailored to your exact workflow.</p>
-
-      <div class="cards-stack">
-        <div class="cap-card">
-          <div class="cap-head">
-            <span class="cap-title">01. Python Data & Workflow Automation</span>
-            <span class="cap-chip">Python</span>
+        <div class="compare-grid">
+          <div class="compare-card compare-before">
+            <span class="pill pill-before">Before AKORE TECH</span>
+            <h4 id="before-title">2+ Hours Daily Copy-Pasting</h4>
+            <p id="before-desc">Manual VLOOKUPs, broken formulas, and repetitive shift/attendance report formatting every single day.</p>
           </div>
-          <p class="cap-desc">Automated CSV/Excel cleaning, bulk PDF/email data extraction, and scheduled data pipelines with zero human error.</p>
-          <a href="#contact" onclick="preselectService('Python Automation & Data')" class="cap-link">Request this build →</a>
-        </div>
-
-        <div class="cap-card">
-          <div class="cap-head">
-            <span class="cap-title">02. Advanced Excel & VBA Macros</span>
-            <span class="cap-chip">Excel / VBA</span>
-          </div>
-          <p class="cap-desc">One-click MIS dashboards, shift & attendance trackers, financial calculators, and automated error-proof formulas.</p>
-          <a href="#contact" onclick="preselectService('Excel VBA & MIS Automation')" class="cap-link">Request this build →</a>
-        </div>
-
-        <div class="cap-card">
-          <div class="cap-head">
-            <span class="cap-title">03. Smart Retail & Inventory Web Apps</span>
-            <span class="cap-chip">Web / PWA</span>
-          </div>
-          <p class="cap-desc">Mobile-first billing systems with instant medicine/item search, expiry alerts, supplier auto-orders, and UPI QR checkout.</p>
-          <a href="#contact" onclick="preselectService('Custom Billing & Inventory App')" class="cap-link">Request this build →</a>
-        </div>
-
-        <div class="cap-card">
-          <div class="cap-head">
-            <span class="cap-title">04. Mobile-First Business Websites</span>
-            <span class="cap-chip">Custom UI</span>
-          </div>
-          <p class="cap-desc">Fast, dark-mode agency and business landing pages with direct WhatsApp lead capture—never generic templates.</p>
-          <a href="#contact" onclick="preselectService('Mobile-First Business Website')" class="cap-link">Request this build →</a>
-        </div>
-
-        <div class="cap-card">
-          <div class="cap-head">
-            <span class="cap-title">05. Executive ATS-Optimized Resumes</span>
-            <span class="cap-chip">Career</span>
-          </div>
-          <p class="cap-desc">Clean, recruiter-ready single-page resumes engineered to pass corporate ATS filters and highlight measurable impact.</p>
-          <a href="#contact" onclick="preselectService('ATS-Optimized Resume Design')" class="cap-link">Request this build →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Live Case Studies -->
-    <section id="work">
-      <div class="sec-tag">Proven Delivery</div>
-      <h2>Real Systems in Production</h2>
-      <p class="sec-sub">Built and deployed for real operational environments.</p>
-
-      <div class="cards-stack">
-        <div class="case-card">
-          <div class="case-tag">RETAIL AUTOMATION • PWA</div>
-          <div class="case-title">Automated Pharmacy Billing & Stock Engine</div>
-          <p class="case-desc">Replaced manual register billing with instant item search, distributor email stock updates, expiry tracking, and UPI QR billing.</p>
-          <span class="case-result">✓ 3x Faster Checkout & Zero Expiry Misses</span>
-        </div>
-
-        <div class="case-card">
-          <div class="case-tag">OPERATIONS • EXCEL + VBA</div>
-          <div class="case-title">Shift Login & Break Compliance Tracker</div>
-          <p class="case-desc">Automated raw login/logout export validation with instant discrepancy flags for multi-member operations teams.</p>
-          <span class="case-result">✓ 45 Mins Saved Per Shift Handover</span>
-        </div>
-
-        <div class="case-card">
-          <div class="case-tag">CAREER BRANDING • ATS</div>
-          <div class="case-title">Corporate Operations & Analyst Resume Suite</div>
-          <p class="case-desc">Restructured multi-year operations profiles into clean, high-scoring ATS layouts for MNC interview shortlists.</p>
-          <span class="case-result">✓ 100% ATS Parse Compatibility</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3-Step Workflow -->
-    <section id="process">
-      <div class="sec-tag">How We Work</div>
-      <h2>From Bottleneck to Live System</h2>
-      <p class="sec-sub">Simple, transparent execution without technical jargon.</p>
-
-      <div class="cards-stack">
-        <div class="step-row">
-          <div class="step-num">01</div>
-          <div>
-            <div class="step-title">Share Your Manual Bottleneck</div>
-            <div class="step-desc">Send a quick WhatsApp message explaining the sheet, report, or workflow slowing you down.</div>
-          </div>
-        </div>
-        <div class="step-row">
-          <div class="step-num">02</div>
-          <div>
-            <div class="step-title">Custom Build & Live Demo</div>
-            <div class="step-desc">We engineer a tailored Python, Excel/VBA, or web solution and show you a working preview.</div>
-          </div>
-        </div>
-        <div class="step-row">
-          <div class="step-num">03</div>
-          <div>
-            <div class="step-title">One-Click Handover</div>
-            <div class="step-desc">Deploy smoothly on your PC or phone with simple instructions—no recurring subscription fees.</div>
+          <div class="compare-card compare-after">
+            <span class="pill pill-after">After AKORE TECH</span>
+            <h4 id="after-title">1-Click Macro Execution (8 Secs)</h4>
+            <p id="after-desc">Automated VBA button cleans raw data, flags errors, and formats executive reports with zero manual effort.</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Interactive WhatsApp Project Brief Builder -->
-    <section id="contact">
-      <div class="sec-tag">Let's Build</div>
-      <h2>Send Your Project Brief</h2>
-      <p class="sec-sub">Fill in 3 quick details—it opens WhatsApp with your ready-to-send message.</p>
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <div class="section-label">Capabilities</div>
+      <h2 class="section-title">Engineered for Speed &amp; Accuracy</h2>
+      <p class="section-desc">No heavy monthly subscriptions. One-time custom tools tailored to your exact workflow.</p>
 
-      <div class="brief-box">
-        <div class="field-group">
-          <label for="clientName">Your Name / Business Name</label>
-          <input type="text" id="clientName" placeholder="e.g., Rahul / Apex Traders" />
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-top">
+            <h3>01. Python Data &amp; Workflow Automation</h3>
+            <span class="tag">Python</span>
+          </div>
+          <p>Automated CSV/Excel cleaning, bulk PDF/email data extraction, and scheduled data pipelines with zero human error.</p>
+          <span class="card-link" onclick="selectService('Python Data & Workflow Automation')">Request this build →</span>
         </div>
 
-        <div class="field-group">
-          <label for="serviceType">What Do You Need Automated?</label>
-          <select id="serviceType">
-            <option value="Python Automation & Data">Python Automation & Data</option>
-            <option value="Excel VBA & MIS Automation">Excel VBA & MIS Automation</option>
-            <option value="Custom Billing & Inventory App">Custom Billing & Inventory App</option>
-            <option value="Mobile-First Business Website">Mobile-First Business Website</option>
-            <option value="ATS-Optimized Resume Design">ATS-Optimized Resume Design</option>
-          </select>
+        <div class="card">
+          <div class="card-top">
+            <h3>02. Advanced Excel &amp; VBA Macros</h3>
+            <span class="tag">Excel / VBA</span>
+          </div>
+          <p>One-click MIS dashboards, shift &amp; attendance trackers, financial calculators (XLOOKUP, INDEX-MATCH, Macros).</p>
+          <span class="card-link" onclick="selectService('Excel & VBA Macro Automation')">Request this build →</span>
         </div>
 
-        <div class="field-group">
-          <label for="projectNote">Short Requirement (Optional)</label>
-          <textarea id="projectNote" placeholder="Tell us briefly what task takes too much time right now..."></textarea>
+        <div class="card">
+          <div class="card-top">
+            <h3>03. Custom Web Apps &amp; Billing Portals</h3>
+            <span class="tag">Web / PWA</span>
+          </div>
+          <p>Mobile-first inventory trackers, instant search billing systems with UPI QR codes, and automated order alerts.</p>
+          <span class="card-link" onclick="selectService('Custom Web App / Billing System')">Request this build →</span>
         </div>
 
-        <a id="waSubmitBtn" href="https://wa.me/918928966120?text=Hi%20AKORE%20TECH%2C%20I%20would%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener" onclick="prepareWhatsAppLink()" class="btn-primary">
-          Send Project Brief on WhatsApp →
-        </a>
-
-        <div class="direct-row">
-          <span class="direct-note">Direct WhatsApp Line: <strong>+91 89289 66120</strong></span>
+        <div class="card">
+          <div class="card-top">
+            <h3>04. Executive &amp; ATS Resume Formatting</h3>
+            <span class="tag">Career Docs</span>
+          </div>
+          <p>Clean, recruiter-tested single-page resumes and Word/PDF business templates structured to pass ATS filters.</p>
+          <span class="card-link" onclick="selectService('ATS Resume & Document Formatting')">Request this build →</span>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
+  <!-- Portfolio / Case Studies -->
+  <section id="work">
+    <div class="container">
+      <div class="section-label">Proof of Work</div>
+      <h2 class="section-title">Recent Systems &amp; Deployments</h2>
+      <p class="section-desc">Built and deployed for real operational environments.</p>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-top">
+            <h3>Automated Retail Billing &amp; Stock Engine</h3>
+            <span class="tag">RETAIL • PWA</span>
+          </div>
+          <p>Replaced manual register billing with instant item search, supplier invoice stock updates, low-stock alerts, and UPI QR checkout.</p>
+          <span class="metric-badge">✓ 3x Faster Checkout &amp; Zero Stock Mismatch</span>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Shift Login &amp; Break Compliance Tracker</h3>
+            <span class="tag">OPERATIONS • EXCEL + VBA</span>
+          </div>
+          <p>Automated raw login/logout export validation with instant discrepancy flags for multi-member operations teams.</p>
+          <span class="metric-badge">✓ 45 Mins Saved Per Shift Handover</span>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Corporate Operations &amp; Analyst Resume Suite</h3>
+            <span class="tag">CAREER BRANDING • ATS</span>
+          </div>
+          <p>Restructured multi-year operations profiles into clean, high-scoring ATS layouts for MNC interview shortlists.</p>
+          <span class="metric-badge">✓ 100% ATS Parse Compatibility</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lead Capture Form -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-label">Start a Conversation</div>
+      <h2 class="section-title">Tell Us What You Want Automated</h2>
+      <p class="section-desc">Send your requirement directly to WhatsApp for a fast response and timeline.</p>
+
+      <div class="form-box">
+        <form id="leadForm" onsubmit="sendToWhatsApp(event)">
+          <div class="form-group">
+            <label for="clientName">Your Name / Business Name</label>
+            <input type="text" id="clientName" class="form-control" placeholder="e.g., Rahul Sharma / Apex Traders" required />
+          </div>
+
+          <div class="form-group">
+            <label for="serviceType">Service Needed</label>
+            <select id="serviceType" class="form-control">
+              <option value="Python Data & Workflow Automation">Python Data &amp; Workflow Automation</option>
+              <option value="Excel & VBA Macro Automation">Excel &amp; VBA Macro Automation</option>
+              <option value="Custom Web App / Billing System">Custom Web App / Billing System</option>
+              <option value="ATS Resume & Document Formatting">ATS Resume &amp; Document Formatting</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="projectDetails">Brief Requirement</label>
+            <textarea id="projectDetails" rows="3" class="form-control" placeholder="Describe your current manual process or what you want built..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%;">
+            Send Project Brief on WhatsApp →
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
 
   <footer>
     <div class="container">
-      <strong>AKORE TECH</strong> • Intelligent Automation & Custom Web Systems<br />
-      Built for Speed, Precision & Zero Clutter.
+      <p>© 2026 <strong>AKORE TECH</strong> — Infinite Core Systems. Built for speed, precision, and reliability.</p>
     </div>
   </footer>
 
   <script>
-    const simData = [
-      {
-        beforeTime: "3.5 Hours Daily",
-        beforeDesc: "Manual copy-paste across multiple Excel sheets, VLOOKUP errors, and late shift handovers.",
-        afterTime: "10 Seconds (1-Click)",
-        afterDesc: "Python & VBA macro automatically cleans raw exports, validates rows, and formats final MIS reports."
+    // Track ?ref= parameter from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const refSource = urlParams.get('ref') || 'Direct Website';
+
+    // Before vs After switcher data
+    const demoData = {
+      excel: {
+        beforeTitle: '2+ Hours Daily Copy-Pasting',
+        beforeDesc: 'Manual VLOOKUPs, broken formulas, and repetitive shift/attendance report formatting every single day.',
+        afterTitle: '1-Click Macro Execution (8 Secs)',
+        afterDesc: 'Automated VBA button cleans raw data, flags errors, and formats executive reports with zero manual effort.'
       },
-      {
-        beforeTime: "Manual Register & Guesswork",
-        beforeDesc: "Slow handwritten bills, missed medicine/stock expiry dates, and manual calculator totals.",
-        afterTime: "Instant Search & QR Bill",
-        afterDesc: "Mobile-first billing app with live stock alerts, auto supplier reorder emails, and instant UPI QR."
+      billing: {
+        beforeTitle: 'Manual Paper Bills & Stock Guesswork',
+        beforeDesc: 'Slow handwritten billing, missed reorder levels, and manual price updates from supplier invoices.',
+        afterTitle: 'Instant Search + UPI QR Billing',
+        afterDesc: 'Fast item search, automated stock updates, low-stock alerts, and instant digital receipts on mobile or PC.'
       },
-      {
-        beforeTime: "0 Interview Callbacks",
-        beforeDesc: "Cluttered 3-page resumes rejected by automated ATS software before a human ever reads them.",
-        afterTime: "95%+ ATS Parse Score",
-        afterDesc: "Crisp, executive single-page layout tailored with exact role keywords and measurable metrics."
+      python: {
+        beforeTitle: 'Messy Multi-File CSV & PDF Exports',
+        beforeDesc: 'Manually merging dozens of spreadsheets and fixing duplicate rows every week.',
+        afterTitle: 'Automated Python Data Pipeline',
+        afterDesc: 'Single script cleans, validates, merges, and exports ready-to-use Excel reports in seconds.'
+      },
+      resume: {
+        beforeTitle: 'Cluttered 3-Page Generic CV',
+        beforeDesc: 'Unstructured formatting that gets rejected by automated ATS screening software.',
+        afterTitle: '95%+ ATS Parse Score',
+        afterDesc: 'Crisp, executive single-page layout tailored with exact role keywords and measurable metrics.'
       }
-    ];
+    };
 
-    function switchSim(index, btn) {
-      document.querySelectorAll(".sim-tab").forEach(t => t.classList.remove("active"));
-      btn.classList.add("active");
-      document.getElementById("beforeTime").textContent = simData[index].beforeTime;
-      document.getElementById("beforeDesc").textContent = simData[index].beforeDesc;
-      document.getElementById("afterTime").textContent = simData[index].afterTime;
-      document.getElementById("afterDesc").textContent = simData[index].afterDesc;
+    function switchTab(key, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('before-title').textContent = demoData[key].beforeTitle;
+      document.getElementById('before-desc').textContent = demoData[key].beforeDesc;
+      document.getElementById('after-title').textContent = demoData[key].afterTitle;
+      document.getElementById('after-desc').textContent = demoData[key].afterDesc;
     }
 
-    function preselectService(serviceName) {
-      const select = document.getElementById("serviceType");
-      for (let i = 0; i < select.options.length; i++) {
-        if (select.options[i].value === serviceName) {
-          select.selectedIndex = i;
-          break;
-        }
-      }
-      prepareWhatsAppLink();
+    function selectService(serviceName) {
+      const select = document.getElementById('serviceType');
+      select.value = serviceName;
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function getReferralTag() {
-      const params = new URLSearchParams(window.location.search);
-      const ref = params.get("ref") || params.get("client");
-      return ref && ref.trim() !== "" ? ` [Ref: ${ref.trim()}]` : "";
+    function sendToWhatsApp(e) {
+      e.preventDefault();
+      const name = document.getElementById('clientName').value.trim();
+      const service = document.getElementById('serviceType').value;
+      const details = document.getElementById('projectDetails').value.trim();
+
+      const phone = '918655718802';
+      const message =
+        `Hello AKORE TECH! I'd like to discuss a project.\n\n` +
+        `*Name:* ${name}\n` +
+        `*Service:* ${service}\n` +
+        `*Details:* ${details}\n` +
+        `[Ref: ${refSource}]`;
+
+      const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank');
     }
-
-    function prepareWhatsAppLink() {
-      const name = document.getElementById("clientName").value.trim() || "a prospective client";
-      const service = document.getElementById("serviceType").value;
-      const note = document.getElementById("projectNote").value.trim();
-      const refTag = getReferralTag();
-
-      let msg = `Hi AKORE TECH, I'm ${name}. I need help with *${service}*.`;
-      if (note) {
-        msg += ` Details: ${note}`;
-      }
-      msg += refTag;
-
-      const url = `https://wa.me/918928966120?text=${encodeURIComponent(msg)}`;
-      document.getElementById("waSubmitBtn").setAttribute("href", url);
-    }
-
-    ["clientName", "serviceType", "projectNote"].forEach(id => {
-      const el = document.getElementById(id);
-      el.addEventListener("input", prepareWhatsAppLink);
-      el.addEventListener("change", prepareWhatsAppLink);
-    });
-
-    prepareWhatsAppLink();
   </script>
 </body>
 </html>
