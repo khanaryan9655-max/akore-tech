@@ -1,673 +1,1451 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AKORE TECH — Infinite Core Systems | Automation & Custom Tools</title>
-  <meta name="description" content="AKORE TECH builds custom Python automation, Excel/VBA MIS dashboards, retail billing apps, and ATS resumes." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg-dark: #06131c;
-      --bg-card: #0b1d2a;
-      --bg-card-hover: #102738;
-      --border: #17364c;
-      --cyan: #22d3ee;
-      --teal: #14b8a6;
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --danger: #f87171;
-      --success: #34d399;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKORE TECH — Interactive Studio Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #070b14;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
 
-    h1, h2, h3, .brand-font { font-family: 'Space Grotesk', sans-serif; }
+        .font-display {
+            font-family: 'Fredoka', sans-serif;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+        /* ==================== AKORE TECH DARK STUDIO STAGE ==================== */
+        #studio-stage {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 50% 28%, rgba(37, 99, 235, 0.22) 0%, rgba(7, 11, 20, 0) 58%),
+                linear-gradient(180deg, #070b14 0%, #0d1526 63%, #111c33 63.2%, #090e1a 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(6, 19, 28, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
+        .wall-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 63%;
+            background-image: radial-gradient(rgba(56, 189, 248, 0.16) 1.2px, transparent 1.2px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
 
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 68px;
-    }
+        .wall-baseboard {
+            position: absolute;
+            top: calc(63% - 6px);
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #1e293b, #38bdf8, #10b981, #1e293b);
+            box-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
+            pointer-events: none;
+        }
 
-    .logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
+        .floor-perspective {
+            position: absolute;
+            top: 63%;
+            left: 0;
+            width: 100%;
+            height: 37%;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(56, 189, 248, 0.04) 0px,
+                    rgba(56, 189, 248, 0.04) 120px,
+                    rgba(15, 23, 42, 0.35) 120px,
+                    rgba(15, 23, 42, 0.35) 240px
+                );
+            pointer-events: none;
+        }
 
-    .logo-svg {
-      width: 38px;
-      height: 38px;
-      flex-shrink: 0;
-    }
+        /* Back Wall Studio Sign */
+        .wall-sign {
+            position: absolute;
+            top: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(37, 99, 235, 0.2);
+            border-radius: 18px;
+            padding: 12px 30px;
+            text-align: center;
+            z-index: 5;
+        }
 
-    .logo-text-group {
-      display: flex;
-      flex-direction: column;
-    }
+        /* ==================== COMMUNICATION DESK STATIONS ==================== */
+        .comm-stations {
+            position: absolute;
+            top: 39%;
+            right: 5%;
+            display: flex;
+            gap: 14px;
+            z-index: 8;
+        }
 
-    .logo-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: #ffffff;
-      line-height: 1.1;
-    }
+        @media (max-width: 768px) {
+            .comm-stations {
+                top: 13%;
+                right: 4%;
+                gap: 8px;
+            }
+        }
 
-    .logo-sub {
-      font-size: 0.64rem;
-      letter-spacing: 0.16em;
-      color: var(--cyan);
-      font-weight: 600;
-      margin-top: 2px;
-    }
+        .station-desk {
+            background: rgba(15, 23, 42, 0.88);
+            border: 1.5px solid rgba(148, 163, 184, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+            border-radius: 16px;
+            padding: 10px 14px;
+            text-align: center;
+            transition: all 0.35s ease;
+        }
 
-    .nav-cta {
-      background: rgba(34, 211, 238, 0.12);
-      color: var(--cyan);
-      border: 1px solid rgba(34, 211, 238, 0.4);
-      padding: 9px 16px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.2s;
-    }
+        .station-desk.highlight {
+            transform: scale(1.12) translateY(-6px);
+            border-color: #38bdf8;
+            box-shadow: 0 0 28px rgba(56, 189, 248, 0.65);
+            background: rgba(15, 23, 42, 0.98);
+        }
 
-    .nav-cta:hover {
-      background: var(--cyan);
-      color: #041017;
-    }
+        /* ==================== SCATTERED BOOKS ON THE FLOOR ==================== */
+        #scattered-books-pile {
+            position: absolute;
+            bottom: 22%;
+            left: 28%;
+            width: 56%;
+            max-width: 640px;
+            height: 155px;
+            z-index: 9;
+            pointer-events: none;
+        }
 
-    /* Hero */
-    .hero {
-      padding: 56px 0 44px;
-      background: radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.12), transparent 65%);
-    }
+        @media (max-width: 768px) {
+            #scattered-books-pile {
+                bottom: 31%;
+                left: 22%;
+                width: 74%;
+                height: 120px;
+            }
+        }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(20, 184, 166, 0.12);
-      border: 1px solid rgba(20, 184, 166, 0.35);
-      color: #5eead4;
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 999px;
-      margin-bottom: 18px;
-    }
+        /* Realistic Cartoon Hardcover Book with Thick Spine & White Pages */
+        .book-prop {
+            position: absolute;
+            width: 148px;
+            height: 44px;
+            border-radius: 6px 10px 10px 6px;
+            border: 2px solid #0f172a;
+            border-left: 12px solid rgba(0, 0, 0, 0.35);
+            box-shadow:
+                0 4px 0 #e2e8f0,
+                0 6px 0 #94a3b8,
+                0 12px 18px rgba(0, 0, 0, 0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            padding: 4px 10px;
+            text-align: center;
+            line-height: 1.1;
+            transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+        }
 
-    .hero h1 {
-      font-size: 2.15rem;
-      line-height: 1.18;
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
+        .book-prop::after {
+            content: '';
+            position: absolute;
+            bottom: -9px;
+            right: 16px;
+            width: 10px;
+            height: 11px;
+            background: #facc15;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 70%, 0 100%);
+        }
 
-    .hero h1 span {
-      background: linear-gradient(90deg, var(--cyan), var(--teal));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        @media (max-width: 768px) {
+            .book-prop {
+                width: 108px;
+                height: 34px;
+                font-size: 9px;
+                padding: 2px 6px;
+            }
+        }
 
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1.02rem;
-      max-width: 620px;
-      margin-bottom: 28px;
-    }
+        .book-prop.lifted-book {
+            transform: translateY(-88px) scale(1.28) rotate(0deg) !important;
+            box-shadow:
+                0 4px 0 #ffffff,
+                0 0 32px rgba(56, 189, 248, 0.95),
+                0 22px 28px rgba(0, 0, 0, 0.75);
+            border-color: #ffffff;
+            z-index: 30;
+        }
 
-    .btn-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+        /* Funny Messy Props: Loose Papers, Coffee Mug & Paper Balls */
+        .loose-paper {
+            position: absolute;
+            width: 54px;
+            height: 66px;
+            background: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 3px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.45);
+            padding: 7px 6px;
+        }
+        .loose-paper::before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: #94a3b8;
+            box-shadow: 0 7px 0 #cbd5e1, 0 14px 0 #94a3b8, 0 21px 0 #cbd5e1, 0 28px 0 #94a3b8;
+        }
 
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: linear-gradient(135deg, var(--cyan), var(--teal));
-      color: #041017;
-      font-weight: 700;
-      font-size: 0.96rem;
-      padding: 14px 22px;
-      border-radius: 12px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.15s, opacity 0.2s;
-    }
+        .paper-ball {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: radial-gradient(circle at 30% 30%, #ffffff, #cbd5e1);
+            border: 1.5px solid #64748b;
+            border-radius: 46% 54% 42% 58% / 55% 40% 60% 45%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
 
-    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+        .spilled-mug {
+            position: absolute;
+            font-size: 26px;
+            filter: drop-shadow(0 6px 8px rgba(0,0,0,0.6));
+            transform: rotate(68deg);
+        }
 
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-card);
-      color: var(--text-main);
-      border: 1px solid var(--border);
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 14px 22px;
-      border-radius: 12px;
-      text-decoration: none;
-    }
+        .sparkle-burst {
+            position: absolute;
+            top: -36px;
+            left: 38%;
+            font-size: 26px;
+            display: none;
+            z-index: 35;
+            animation: popSparkle 0.55s ease-in-out infinite alternate;
+        }
 
-    /* Section */
-    section { padding: 48px 0; }
+        @media (max-width: 768px) {
+            #scattered-books-pile {
+                bottom: 34%;
+                left: 24%;
+                transform: scale(0.75);
+            }
+        }
 
-    .section-label {
-      color: var(--cyan);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
+        .book-prop {
+            position: absolute;
+            border-radius: 7px;
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            color: #fff;
+            padding: 4px 9px;
+            letter-spacing: 0.4px;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+        }
 
-    .section-title {
-      font-size: 1.65rem;
-      margin-bottom: 10px;
-    }
+        .book-prop.lifted-book {
+            transform: translateY(-48px) scale(1.22) rotate(0deg) !important;
+            box-shadow: 0 0 24px rgba(56, 189, 248, 0.95), 0 10px 18px rgba(0, 0, 0, 0.7);
+            border-color: #ffffff;
+            z-index: 25;
+        }
 
-    .section-desc {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 26px;
-    }
+        .sparkle-burst {
+            position: absolute;
+            top: -28px;
+            left: 85px;
+            font-size: 22px;
+            display: none;
+            animation: popSparkle 0.6s ease-in-out infinite alternate;
+        }
 
-    /* Interactive Demo Box */
-    .demo-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-    }
+        @keyframes popSparkle {
+            0% { transform: scale(0.85) rotate(-8deg); }
+            100% { transform: scale(1.2) rotate(8deg); }
+        }
 
-    .tabs {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 18px;
-    }
+        /* ==================== BITMOJI SVG CHARACTER RIG ==================== */
+        #character-rig {
+            position: absolute;
+            bottom: 14%;
+            left: 11%;
+            width: 165px;
+            height: 265px;
+            z-index: 20;
+            transition: left 1.15s cubic-bezier(0.34, 1.25, 0.64, 1), bottom 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            pointer-events: none;
+        }
 
-    .tab-btn {
-      background: #071620;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      padding: 9px 14px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-    }
+        @media (max-width: 768px) {
+            #character-rig {
+                width: 122px;
+                height: 198px;
+                bottom: 24%;
+                left: 6%;
+            }
+        }
 
-    .tab-btn.active {
-      background: rgba(34, 211, 238, 0.14);
-      color: var(--cyan);
-      border-color: var(--cyan);
-    }
+        .character-shadow {
+            position: absolute;
+            bottom: 4px;
+            width: 105px;
+            height: 18px;
+            background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.35) 0%, rgba(0, 0, 0, 0) 75%);
+            border-radius: 50%;
+            z-index: 1;
+        }
 
-    .compare-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
+        #avatar-svg {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.6));
+            transform-origin: bottom center;
+            animation: idleBreathe 2.8s ease-in-out infinite;
+        }
 
-    .compare-card {
-      border-radius: 12px;
-      padding: 18px;
-      border: 1px solid var(--border);
-    }
+        /* Strict Pose Visibility */
+        .pose-wave, .pose-think, .pose-shy {
+            display: none !important;
+        }
+        #avatar-svg[data-pose="wave"] .pose-wave { display: inline !important; }
+        #avatar-svg[data-pose="think"] .pose-think { display: inline !important; }
+        #avatar-svg[data-pose="shy"] .pose-shy { display: inline !important; }
 
-    .compare-before {
-      background: rgba(248, 113, 113, 0.05);
-      border-color: rgba(248, 113, 113, 0.25);
-    }
+        .waving-hand-group {
+            transform-origin: 133px 132px;
+            animation: handWave 0.65s ease-in-out infinite alternate;
+        }
 
-    .compare-after {
-      background: rgba(52, 211, 153, 0.06);
-      border-color: rgba(52, 211, 153, 0.3);
-    }
+        @keyframes handWave {
+            0% { transform: rotate(-10deg); }
+            100% { transform: rotate(12deg); }
+        }
 
-    .pill {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 999px;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
+        .sweat-drop {
+            animation: sweatBounce 1.1s ease-in-out infinite alternate;
+        }
 
-    .pill-before { background: rgba(248, 113, 113, 0.15); color: var(--danger); }
-    .pill-after { background: rgba(52, 211, 153, 0.15); color: var(--success); }
+        @keyframes sweatBounce {
+            0% { transform: translateY(0px); opacity: 0.85; }
+            100% { transform: translateY(5px); opacity: 1; }
+        }
 
-    .compare-card h4 { font-size: 1.05rem; margin-bottom: 6px; }
-    .compare-card p { font-size: 0.9rem; color: var(--text-muted); }
+        .is-walking #avatar-svg {
+            animation: walkBob 0.3s ease-in-out infinite alternate !important;
+        }
+        .is-walking #leg-left {
+            transform-origin: 85px 214px;
+            animation: legSwingLeft 0.3s ease-in-out infinite alternate;
+        }
+        .is-walking #leg-right {
+            transform-origin: 115px 214px;
+            animation: legSwingRight 0.3s ease-in-out infinite alternate;
+        }
 
-    /* Cards Grid */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
+        @keyframes legSwingLeft {
+            0% { transform: rotate(-14deg); }
+            100% { transform: rotate(14deg); }
+        }
+        @keyframes legSwingRight {
+            0% { transform: rotate(14deg); }
+            100% { transform: rotate(-14deg); }
+        }
 
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 22px;
-      transition: 0.2s;
-    }
+        .is-searching #avatar-svg {
+            animation: searchDig 0.42s ease-in-out infinite alternate !important;
+        }
 
-    .card:hover {
-      background: var(--bg-card-hover);
-      border-color: rgba(34, 211, 238, 0.45);
-    }
+        @keyframes idleBreathe {
+            0%, 100% { transform: scaleY(1) translateY(0); }
+            50% { transform: scaleY(1.015) translateY(-2px); }
+        }
 
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
+        @keyframes walkBob {
+            0% { transform: translateY(0) rotate(-2deg); }
+            100% { transform: translateY(-10px) rotate(2deg); }
+        }
 
-    .card h3 { font-size: 1.12rem; }
+        @keyframes searchDig {
+            0% { transform: translateY(8px) rotate(-5deg); }
+            100% { transform: translateY(-2px) rotate(5deg); }
+        }
 
-    .tag {
-      font-size: 0.74rem;
-      font-weight: 600;
-      color: var(--cyan);
-      background: rgba(34, 211, 238, 0.1);
-      border: 1px solid rgba(34, 211, 238, 0.25);
-      padding: 4px 10px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
+        /* ==================== SPEECH BUBBLE ==================== */
+        #speech-bubble {
+            position: absolute;
+            bottom: 103%;
+            left: 50%;
+            transform: translateX(-32%);
+            width: 295px;
+            background: #ffffff;
+            color: #0f172a;
+            border: 2.5px solid #38bdf8;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+            border-radius: 20px;
+            padding: 13px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.45;
+            z-index: 30;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
 
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      margin-bottom: 14px;
-    }
+        #speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 34%;
+            border-width: 12px 10px 0;
+            border-style: solid;
+            border-color: #ffffff transparent transparent transparent;
+        }
 
-    .card-link {
-      color: var(--cyan);
-      font-size: 0.88rem;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
+        @media (max-width: 640px) {
+            #speech-bubble {
+                width: 235px;
+                font-size: 12.5px;
+                padding: 10px 12px;
+                transform: translateX(-20%);
+            }
+        }
 
-    .metric-badge {
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--success);
-      background: rgba(52, 211, 153, 0.1);
-      border: 1px solid rgba(52, 211, 153, 0.25);
-      padding: 5px 11px;
-      border-radius: 8px;
-    }
+        /* ==================== INTERACTIVE OVERLAY CARDS ==================== */
+        .stage-overlay {
+            position: relative;
+            z-index: 40;
+            width: 100%;
+            max-width: 660px;
+            margin: 0 auto 20px auto;
+            padding: 0 16px;
+        }
 
-    /* Lead Form */
-    .form-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 24px;
-    }
+        .adventure-card {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(56, 189, 248, 0.35);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65);
+            border-radius: 22px;
+            padding: 20px 22px;
+            animation: cardSlideUp 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
 
-    .form-group { margin-bottom: 16px; }
-    .form-group label {
-      display: block;
-      font-size: 0.86rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #cbd5e1;
-    }
+        @keyframes cardSlideUp {
+            from { opacity: 0; transform: translateY(16px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
 
-    .form-control {
-      width: 100%;
-      background: #06131c;
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      padding: 12px 14px;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      font-family: inherit;
-    }
+        .btn-chunky {
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+            transition: transform 0.14s ease, box-shadow 0.14s ease;
+            cursor: pointer;
+        }
 
-    .form-control:focus {
-      outline: none;
-      border-color: var(--cyan);
-    }
+        .btn-chunky:hover {
+            transform: translateY(-2px);
+        }
 
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 0 40px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-
-    @media (min-width: 768px) {
-      .hero h1 { font-size: 3rem; }
-      .btn-group { flex-direction: row; }
-      .compare-grid { grid-template-columns: 1fr 1fr; }
-      .cards-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-  </style>
+        .btn-chunky:active {
+            transform: translateY(1px);
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <header>
-    <div class="container nav-inner">
-      <a href="#" class="logo-wrap">
-        <svg class="logo-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="akGrad" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#22d3ee" />
-              <stop offset="100%" stop-color="#14b8a6" />
-            </linearGradient>
-          </defs>
-          <path d="M22 44C13.5 44 8 38.5 8 32C8 25.5 13.5 20 22 20C27.5 20 31.5 23.5 35.5 28L32 32L28.5 28C26 25.2 24.2 24 22 24C16.5 24 12.5 27.5 12.5 32C12.5 36.5 16.5 40 22 40C25 40 27.5 38.5 30 35.5L32 33L34 35.5C36.5 38.5 39 40 42 40C47.5 40 51.5 36.5 51.5 32C51.5 27.5 47.5 24 42 24C39.8 24 38 25.2 35.5 28L32 24C36 20.5 39 20 42 20C50.5 20 56 25.5 56 32C56 38.5 50.5 44 42 44C38 44 34.8 42.2 32 39C29.2 42.2 26 44 22 44Z" fill="url(#akGrad)" />
-          <path d="M32 10L19 52H24.5L32 26.5L39.5 52H45L32 10Z" fill="#e2e8f0" />
+<div id="studio-stage">
+    <div class="wall-pattern"></div>
+    <div class="wall-baseboard"></div>
+    <div class="floor-perspective"></div>
+
+    <!-- Top Brand Header -->
+    <header class="relative z-40 flex items-center justify-between px-4 sm:px-8 py-4">
+        <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-slate-900/90 border border-cyan-400/40 flex items-center justify-center shadow-lg shadow-cyan-500/20 p-1.5">
+                <svg viewBox="0 0 100 70" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M26 42 C10 42 10 22 26 22 C38 22 45 32 50 32 C55 32 62 22 74 22 C90 22 90 42 74 42 C62 42 55 32 50 32 C45 32 38 42 26 42 Z" fill="none" stroke="#38bdf8" stroke-width="6.5" stroke-linecap="round"/>
+                    <path d="M35 58 L50 12 L65 58" fill="none" stroke="#f8fafc" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="40" y1="43" x2="60" y2="43" stroke="#f8fafc" stroke-width="5.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div>
+                <h1 class="font-display font-bold text-lg sm:text-xl tracking-wide text-white leading-none">AKORE TECH</h1>
+                <p class="text-[10px] font-bold text-cyan-400 tracking-[0.18em] uppercase mt-1">INFINITE CORE SYSTEMS</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            <button id="sound-toggle-btn" onclick="toggleSound()" class="btn-chunky bg-cyan-500/20 border-cyan-400/50 hover:bg-cyan-500/30 text-cyan-300 font-display font-semibold text-xs sm:text-sm px-3.5 py-2 rounded-full flex items-center gap-1.5">
+                <span id="sound-icon">🔊</span> <span id="sound-label">Sound ON</span>
+            </button>
+            <button onclick="restartJourney()" class="btn-chunky bg-slate-800/90 hover:bg-slate-700 text-slate-100 font-display font-semibold text-xs sm:text-sm px-4 py-2 rounded-full flex items-center gap-1.5">
+                <span>↺</span> Reset Tour
+            </button>
+        </div>
+    </header>
+
+    <!-- Back Wall Studio Sign -->
+    <div class="wall-sign hidden sm:block">
+        <div class="flex items-center justify-center gap-2.5">
+            <svg viewBox="0 0 100 70" class="w-8 h-6" xmlns="http://www.w3.org/2000/svg">
+                <path d="M26 42 C10 42 10 22 26 22 C38 22 45 32 50 32 C55 32 62 22 74 22 C90 22 90 42 74 42 C62 42 55 32 50 32 C45 32 38 42 26 42 Z" fill="none" stroke="#38bdf8" stroke-width="7" stroke-linecap="round"/>
+                <path d="M35 58 L50 12 L65 58" fill="none" stroke="#f8fafc" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="40" y1="43" x2="60" y2="43" stroke="#f8fafc" stroke-width="6" stroke-linecap="round"/>
+            </svg>
+            <div class="font-display text-2xl font-bold text-white tracking-tight">AKORE TECH</div>
+        </div>
+        <div class="text-[10px] font-bold uppercase tracking-[0.24em] text-cyan-400 mt-1">INFINITE CORE SYSTEMS</div>
+    </div>
+
+    <!-- Scattered Books & Files on the Floor (Non-Clickable Props) -->
+    <div id="scattered-books-pile" aria-hidden="true">
+        <div id="search-sparkles" class="sparkle-burst">✨🔍📚✨</div>
+
+        <!-- Funny Messy Room Details -->
+        <div class="loose-paper" style="bottom: 62px; left: 8%; transform: rotate(-24deg);"></div>
+        <div class="loose-paper" style="bottom: 12px; left: 48%; transform: rotate(31deg);"></div>
+        <div class="loose-paper" style="bottom: 70px; left: 76%; transform: rotate(15deg);"></div>
+        <div class="paper-ball" style="bottom: 8px; left: 26%;"></div>
+        <div class="paper-ball" style="bottom: 52px; left: 62%;"></div>
+        <div class="paper-ball" style="bottom: 18px; left: 88%;"></div>
+        <div class="spilled-mug" style="bottom: 4px; left: 66%;">☕</div>
+
+        <!-- Wide-Spread Cartoon Hardcover Books -->
+        <div id="book-inventory" class="book-prop bg-blue-600" style="bottom: 22px; left: 2%; transform: rotate(-14deg);">📦 INVENTORY & STOCK</div>
+        <div id="book-excel" class="book-prop bg-emerald-600" style="bottom: 74px; left: 22%; transform: rotate(11deg);">📊 EXCEL & MACROS</div>
+        <div id="book-billing" class="book-prop bg-amber-500 text-slate-950" style="bottom: 10px; left: 32%; transform: rotate(-6deg);">🧾 BILLING & POS</div>
+        <div id="book-python" class="book-prop bg-purple-600" style="bottom: 68px; left: 52%; transform: rotate(-16deg);">🐍 PYTHON & DATA</div>
+        <div id="book-website" class="book-prop bg-rose-500" style="bottom: 16px; left: 64%; transform: rotate(18deg);">🌐 WEB APPS</div>
+        <div id="book-receipts" class="book-prop bg-cyan-600" style="bottom: 54px; left: 74%; transform: rotate(7deg);">📲 DIGITAL RECEIPTS</div>
+    </div>
+
+    <!-- Right Wall Communication Desks -->
+    <div class="comm-stations">
+        <div id="station-whatsapp" class="station-desk">
+            <div class="text-xl sm:text-2xl">💬</div>
+            <div class="font-display font-bold text-[11px] sm:text-xs text-emerald-400 mt-1">WhatsApp</div>
+        </div>
+        <div id="station-email" class="station-desk">
+            <div class="text-xl sm:text-2xl">✉️</div>
+            <div class="font-display font-bold text-[11px] sm:text-xs text-cyan-400 mt-1">Email</div>
+        </div>
+    </div>
+
+    <!-- Animated Custom SVG Character & Speech Bubble -->
+    <div id="character-rig">
+        <div id="speech-bubble">
+            Hi there! Welcome to <strong>Akore Tech</strong>. What's your name?
+        </div>
+
+        <svg id="avatar-svg" data-pose="wave" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+            <!-- LEGS (GREY CARGO PANTS & WHITE SNEAKERS) -->
+            <g id="leg-left">
+                <path d="M74 214 L97 214 L95 288 L71 288 Z" fill="#cbd5e1" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
+                <rect x="69" y="242" width="12" height="22" rx="3" fill="#94a3b8" stroke="#0f172a" stroke-width="2.2"/>
+                <line x1="69" y1="248" x2="81" y2="248" stroke="#0f172a" stroke-width="2"/>
+                <path d="M67 288 L96 288 L97 302 C97 306 63 306 63 300 C63 293 67 288 67 288 Z" fill="#ffffff" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
+                <line x1="64" y1="299" x2="96" y2="299" stroke="#64748b" stroke-width="2"/>
+            </g>
+
+            <g id="leg-right">
+                <path d="M103 214 L126 214 L129 288 L105 288 Z" fill="#cbd5e1" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
+                <rect x="119" y="242" width="12" height="22" rx="3" fill="#94a3b8" stroke="#0f172a" stroke-width="2.2"/>
+                <line x1="119" y1="248" x2="131" y2="248" stroke="#0f172a" stroke-width="2"/>
+                <path d="M104 288 L133 288 C133 288 137 293 137 300 C137 306 103 306 103 302 Z" fill="#ffffff" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
+                <line x1="104" y1="299" x2="136" y2="299" stroke="#64748b" stroke-width="2"/>
+            </g>
+
+            <!-- TORSO (BLACK BOMBER JACKET OVER BLACK TEE) -->
+            <g id="torso">
+                <rect x="91" y="114" width="18" height="18" rx="6" fill="#f1c29b" stroke="#0f172a" stroke-width="2.8"/>
+                <path d="M74 128 L126 128 L130 215 L70 215 Z" fill="#090d16"/>
+                <g transform="translate(88, 148) scale(0.24)">
+                    <path d="M26 42 C10 42 10 22 26 22 C38 22 45 32 50 32 C55 32 62 22 74 22 C90 22 90 42 74 42 C62 42 55 32 50 32 C45 32 38 42 26 42 Z" fill="none" stroke="#38bdf8" stroke-width="8" stroke-linecap="round"/>
+                    <path d="M35 58 L50 12 L65 58" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <path d="M68 130 C68 124 84 123 89 126 L89 216 L66 216 C64 190 65 152 68 130 Z" fill="#1e293b" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M132 130 C132 124 116 123 111 126 L111 216 L134 216 C136 190 135 152 132 130 Z" fill="#1e293b" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M84 125 Q100 136 116 125" fill="none" stroke="#0f172a" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="66" y1="208" x2="89" y2="208" stroke="#0f172a" stroke-width="2.5"/>
+                <line x1="111" y1="208" x2="134" y2="208" stroke="#0f172a" stroke-width="2.5"/>
+                <circle cx="85" cy="145" r="2" fill="#94a3b8"/>
+                <circle cx="85" cy="168" r="2" fill="#94a3b8"/>
+                <circle cx="85" cy="191" r="2" fill="#94a3b8"/>
+            </g>
+
+            <!-- POSE 1 ARMS: WAVING -->
+            <g class="pose-wave">
+                <path d="M67 132 C54 152 52 182 56 202" fill="none" stroke="#1e293b" stroke-width="17" stroke-linecap="round"/>
+                <path d="M67 132 C54 152 52 182 56 202" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="57" cy="207" r="8.5" fill="#f1c29b" stroke="#0f172a" stroke-width="2.8"/>
+
+                <g class="waving-hand-group">
+                    <path d="M133 132 C152 126 164 106 162 84" fill="none" stroke="#1e293b" stroke-width="17" stroke-linecap="round"/>
+                    <path d="M133 132 C152 126 164 106 162 84" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+                    <g transform="translate(152, 63)">
+                        <rect x="2" y="8" width="16" height="16" rx="7" fill="#f1c29b" stroke="#0f172a" stroke-width="2.6"/>
+                        <line x1="5" y1="9" x2="3" y2="1" stroke="#f1c29b" stroke-width="4.5" stroke-linecap="round"/>
+                        <line x1="5" y1="9" x2="3" y2="1" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="9" y1="8" x2="9" y2="-1" stroke="#f1c29b" stroke-width="4.5" stroke-linecap="round"/>
+                        <line x1="9" y1="8" x2="9" y2="-1" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="13" y1="8" x2="15" y2="0" stroke="#f1c29b" stroke-width="4.5" stroke-linecap="round"/>
+                        <line x1="13" y1="8" x2="15" y2="0" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="16" y1="11" x2="20" y2="4" stroke="#f1c29b" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="16" y1="11" x2="20" y2="4" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
+                    </g>
+                </g>
+            </g>
+
+            <!-- POSE 2 ARMS: THINKING -->
+            <g class="pose-think">
+                <path d="M67 132 C50 152 52 174 68 184" fill="none" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+                <path d="M67 132 C50 152 52 174 68 184" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+                <path d="M133 132 C152 156 132 162 106 122" fill="none" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+                <path d="M133 132 C152 156 132 162 106 122" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="103" cy="118" r="8.5" fill="#f1c29b" stroke="#0f172a" stroke-width="2.6"/>
+            </g>
+
+            <!-- POSE 3 ARMS: SHY HEAD-SCRATCH -->
+            <g class="pose-shy">
+                <path d="M67 132 C55 154 54 182 58 202" fill="none" stroke="#1e293b" stroke-width="17" stroke-linecap="round"/>
+                <path d="M67 132 C55 154 54 182 58 202" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="59" cy="207" r="8.5" fill="#f1c29b" stroke="#0f172a" stroke-width="2.8"/>
+                <path d="M133 132 C158 122 154 88 130 78" fill="none" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+                <path d="M133 132 C158 122 154 88 130 78" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+            </g>
+
+            <!-- HEAD, HAIR, GLASSES, BEARD & EXPRESSIONS -->
+            <g id="head-group">
+                <circle cx="65" cy="82" r="7.5" fill="#eab38a" stroke="#0f172a" stroke-width="2.6"/>
+                <circle cx="135" cy="82" r="7.5" fill="#eab38a" stroke="#0f172a" stroke-width="2.6"/>
+                <circle cx="64" cy="86" r="2" fill="#0f172a"/>
+                <circle cx="136" cy="86" r="2" fill="#0f172a"/>
+
+                <path d="M67 66 C67 42 133 42 133 66 L133 88 C133 108 117 118 100 118 C83 118 67 108 67 88 Z" fill="#f1c29b" stroke="#0f172a" stroke-width="3"/>
+
+                <path d="M67 82 C67 108 82 119 100 119 C118 119 133 108 133 82 L129 82 C127 96 117 103 100 103 C83 103 73 96 71 82 Z" fill="#27201c" stroke="#0f172a" stroke-width="2.4"/>
+                <path d="M84 96 Q100 90 116 96 Q114 102 100 100 Q86 102 84 96 Z" fill="#27201c"/>
+                <rect x="96" y="106" width="8" height="8" rx="3" fill="#27201c"/>
+
+                <path d="M64 68 C62 38 82 26 100 26 C118 26 138 38 136 68 C132 58 124 54 117 58 C112 50 104 54 100 60 C95 52 86 52 81 58 C74 52 68 58 64 68 Z" fill="#2b211c" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
+
+                <path d="M76 66 Q84 62 92 66" fill="none" stroke="#1e1612" stroke-width="3.2" stroke-linecap="round"/>
+                <path d="M108 66 Q116 62 124 66" fill="none" stroke="#1e1612" stroke-width="3.2" stroke-linecap="round"/>
+
+                <!-- Eyes -->
+                <g class="pose-wave pose-shy">
+                    <circle cx="84" cy="76" r="4.5" fill="#ffffff"/>
+                    <circle cx="84.5" cy="76" r="3" fill="#2563eb"/>
+                    <circle cx="85" cy="75" r="1.2" fill="#ffffff"/>
+                    <circle cx="116" cy="76" r="4.5" fill="#ffffff"/>
+                    <circle cx="115.5" cy="76" r="3" fill="#2563eb"/>
+                    <circle cx="116" cy="75" r="1.2" fill="#ffffff"/>
+                </g>
+
+                <g class="pose-think">
+                    <circle cx="84" cy="76" r="4.5" fill="#ffffff"/>
+                    <circle cx="85.5" cy="78" r="3" fill="#2563eb"/>
+                    <circle cx="116" cy="76" r="4.5" fill="#ffffff"/>
+                    <circle cx="117.5" cy="78" r="3" fill="#2563eb"/>
+                </g>
+
+                <!-- Glasses -->
+                <g fill="rgba(56, 189, 248, 0.14)" stroke="#0f172a" stroke-width="3">
+                    <rect x="72" y="68" width="24" height="16" rx="5"/>
+                    <rect x="104" y="68" width="24" height="16" rx="5"/>
+                    <line x1="96" y1="74" x2="104" y2="74" stroke-width="3"/>
+                    <line x1="66" y1="73" x2="72" y2="73" stroke-width="2.6"/>
+                    <line x1="128" y1="73" x2="134" y2="73" stroke-width="2.6"/>
+                </g>
+
+                <path d="M100 76 L98 87 L103 88" fill="none" stroke="#c88d65" stroke-width="2.5" stroke-linecap="round"/>
+
+                <!-- Mouths -->
+                <path class="pose-wave" d="M90 101 Q100 110 110 101 Z" fill="#ffffff" stroke="#0f172a" stroke-width="2"/>
+                <path class="pose-think" d="M92 103 Q100 106 108 102" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"/>
+                <g class="pose-shy">
+                    <path d="M91 102 Q100 108 109 102" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                    <path class="sweat-drop" d="M141 52 C141 52 146 60 146 64 C146 67 143.8 69 141 69 C138.2 69 136 67 136 64 C136 60 141 52 141 52 Z" fill="#38bdf8" stroke="#0f172a" stroke-width="2"/>
+                </g>
+            </g>
         </svg>
-        <div class="logo-text-group">
-          <span class="logo-title brand-font">AKORE TECH</span>
-          <span class="logo-sub">INFINITE CORE SYSTEMS</span>
-        </div>
-      </a>
-      <a href="#contact" class="nav-cta">Start Project</a>
+
+        <div class="character-shadow"></div>
     </div>
-  </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <div class="badge">● Mumbai &amp; Global Remote Delivery</div>
-      <h1>Automate Repetitive Work. <span>Scale With Precision.</span></h1>
-      <p>
-        We build custom Python automation scripts, one-click Excel/VBA MIS dashboards, smart retail billing &amp; inventory web apps, and ATS-ready corporate resumes.
-      </p>
-      <div class="btn-group">
-        <a href="#contact" class="btn-primary">Get a Free Workflow Quote →</a>
-        <a href="#demo" class="btn-secondary">See Before vs. After</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Interactive Before vs After -->
-  <section id="demo">
-    <div class="container">
-      <div class="section-label">Live Impact Preview</div>
-      <h2 class="section-title">Manual Chaos vs. AKORE Systems</h2>
-      <p class="section-desc">Tap a category below to see how we eliminate manual bottlenecks.</p>
-
-      <div class="demo-box">
-        <div class="tabs">
-          <button class="tab-btn active" onclick="switchTab('excel', this)">Excel &amp; VBA MIS</button>
-          <button class="tab-btn" onclick="switchTab('billing', this)">Retail Billing App</button>
-          <button class="tab-btn" onclick="switchTab('python', this)">Python Data Cleanup</button>
-          <button class="tab-btn" onclick="switchTab('resume', this)">ATS Resume Polish</button>
+    <!-- Interactive Control Panel Container -->
+    <main class="stage-overlay" id="ui-container">
+        <div id="card-name" class="adventure-card">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="px-2.5 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/40 text-cyan-300 font-bold text-xs uppercase tracking-wider">Step 1 of 3</span>
+                <span class="text-xs font-medium text-slate-400">Let's get introduced</span>
+            </div>
+            <h2 class="font-display text-xl sm:text-2xl font-bold text-white mb-3">What should I call you?</h2>
+            <form onsubmit="submitVisitorName(event)" class="flex flex-col sm:flex-row gap-2.5">
+                <input
+                    type="text"
+                    id="visitor-name-input"
+                    placeholder="Enter your name..."
+                    required
+                    autocomplete="off"
+                    class="flex-1 px-4 py-3 rounded-xl border border-slate-600 bg-slate-900/90 text-white placeholder-slate-400 font-semibold text-base focus:outline-none focus:border-cyan-400"
+                >
+                <button type="submit" class="btn-chunky bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-slate-950 font-display font-bold px-6 py-3 rounded-xl text-base">
+                    Continue →
+                </button>
+            </form>
         </div>
+    </main>
+</div>
 
-        <div class="compare-grid">
-          <div class="compare-card compare-before">
-            <span class="pill pill-before">Before AKORE TECH</span>
-            <h4 id="before-title">2+ Hours Daily Copy-Pasting</h4>
-            <p id="before-desc">Manual VLOOKUPs, broken formulas, and repetitive shift/attendance report formatting every single day.</p>
-          </div>
-          <div class="compare-card compare-after">
-            <span class="pill pill-after">After AKORE TECH</span>
-            <h4 id="after-title">1-Click Macro Execution (8 Secs)</h4>
-            <p id="after-desc">Automated VBA button cleans raw data, flags errors, and formats executive reports with zero manual effort.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<script>
+    const AKORE_WHATSAPP_NUMBER = "918928966120";
+    const AKORE_EMAIL_ADDRESS = "khanaryan9655@gmail.com";
 
-  <!-- Services -->
-  <section id="services">
-    <div class="container">
-      <div class="section-label">Capabilities</div>
-      <h2 class="section-title">Engineered for Speed &amp; Accuracy</h2>
-      <p class="section-desc">No heavy monthly subscriptions. One-time custom tools tailored to your exact workflow.</p>
+    const CAPABILITIES = [
+        {
+            id: "inventory",
+            badge: "Inventory & Stock",
+            icon: "📦",
+            color: "bg-blue-600",
+            title: "Inventory Handled in Just a Few Minutes",
+            shortDesc: "Automated stock intake, batch tracking, and instant search without manual data entry.",
+            fullDesc: "Turn messy purchase bills and stock sheets into a clean, searchable digital inventory in just a few minutes—complete with low-stock alerts and instant item lookup.",
+            highlights: [
+                "Fast bill-to-stock entry with automatic quantity updates",
+                "Instant batch, expiry, and supplier lookup in seconds",
+                "Automated low-stock alerts for timely re-ordering"
+            ]
+        },
+        {
+            id: "excel",
+            badge: "Excel & Macros",
+            icon: "📊",
+            color: "bg-emerald-600",
+            title: "Excel & Macro Automation",
+            shortDesc: "One-click reports, automated formulas, and custom VBA macros that save hours daily.",
+            fullDesc: "Eliminate repetitive spreadsheet work with custom Excel templates, smart formulas, and automated macros that clean, calculate, and summarize your data in one click.",
+            highlights: [
+                "One-click VBA macros for daily & monthly reporting",
+                "Error-free automated reconciliation & summary sheets",
+                "Clean, easy-to-use dashboards built inside Excel"
+            ]
+        },
+        {
+            id: "billing",
+            badge: "Custom Web App / Billing",
+            icon: "🧾",
+            color: "bg-amber-500",
+            title: "Custom Web App / Billing System",
+            shortDesc: "Tailored POS, invoicing, and business web applications built around your exact workflow.",
+            fullDesc: "Get a lightweight, fast web application or customer billing system designed specifically for your business—accessible on both desktop and mobile devices.",
+            highlights: [
+                "Fast customer invoicing with automatic stock deduction",
+                "Printable & WhatsApp-ready bill formats",
+                "Clean sales history and daily revenue tracking"
+            ]
+        },
+        {
+            id: "python",
+            badge: "Python & Data",
+            icon: "🐍",
+            color: "bg-purple-600",
+            title: "Python & Data Workflow Automation",
+            shortDesc: "Custom Python scripts to automate file processing, data extraction, and scheduled tasks.",
+            fullDesc: "Connect your files, spreadsheets, and APIs using reliable Python workflows that automatically extract, clean, and organize your business data without manual effort.",
+            highlights: [
+                "Automated PDF, image, and CSV data extraction",
+                "Scheduled background scripts for repetitive workflows",
+                "Clean structured outputs ready for instant decisions"
+            ]
+        },
+        {
+            id: "website",
+            badge: "Web Development",
+            icon: "🌐",
+            color: "bg-rose-500",
+            title: "Business Website & Landing Pages",
+            shortDesc: "Modern, fast, mobile-responsive websites crafted to convert visitors into clients.",
+            fullDesc: "Stand out online with a custom-designed, interactive website tailored to your brand—engineered for speed, clarity, and seamless mobile experience.",
+            highlights: [
+                "Unique, interactive UI tailored to your brand identity",
+                "100% mobile-responsive across phones, tablets & desktops",
+                "Direct WhatsApp & Email lead capture integration"
+            ]
+        },
+        {
+            id: "receipts",
+            badge: "Digital Receipts",
+            icon: "📲",
+            color: "bg-cyan-600",
+            title: "Digital Receipt & Cash Memo Systems",
+            shortDesc: "Instant digital cash memos and receipts shareable via WhatsApp or thermal/A4 print.",
+            fullDesc: "Upgrade paper registers to instant digital cash memos that calculate totals, discounts, and taxes automatically while letting you share receipts in one tap.",
+            highlights: [
+                "Instant total & discount calculation with zero math errors",
+                "One-click WhatsApp receipt sharing & clean print layout",
+                "Organized digital archive of every past transaction"
+            ]
+        }
+    ];
 
-      <div class="cards-grid">
-        <div class="card">
-          <div class="card-top">
-            <h3>01. Python Data &amp; Workflow Automation</h3>
-            <span class="tag">Python</span>
-          </div>
-          <p>Automated CSV/Excel cleaning, bulk PDF/email data extraction, and scheduled data pipelines with zero human error.</p>
-          <span class="card-link" onclick="selectService('Python Data & Workflow Automation')">Request this build →</span>
-        </div>
+    let visitorName = "";
+    let selectedCapability = null;
+    let customProjectNote = "";
+    let exploreIndex = 0;
+    let soundEnabled = true;
+    let walkInterval = null;
+    let exploreTourTimer = null;
+    let isAutoTourRunning = false;
 
-        <div class="card">
-          <div class="card-top">
-            <h3>02. Advanced Excel &amp; VBA Macros</h3>
-            <span class="tag">Excel / VBA</span>
-          </div>
-          <p>One-click MIS dashboards, shift &amp; attendance trackers, financial calculators (XLOOKUP, INDEX-MATCH, Macros).</p>
-          <span class="card-link" onclick="selectService('Excel & VBA Macro Automation')">Request this build →</span>
-        </div>
-
-        <div class="card">
-          <div class="card-top">
-            <h3>03. Custom Web Apps &amp; Billing Portals</h3>
-            <span class="tag">Web / PWA</span>
-          </div>
-          <p>Mobile-first inventory trackers, instant search billing systems with UPI QR codes, and automated order alerts.</p>
-          <span class="card-link" onclick="selectService('Custom Web App / Billing System')">Request this build →</span>
-        </div>
-
-        <div class="card">
-          <div class="card-top">
-            <h3>04. Executive &amp; ATS Resume Formatting</h3>
-            <span class="tag">Career Docs</span>
-          </div>
-          <p>Clean, recruiter-tested single-page resumes and Word/PDF business templates structured to pass ATS filters.</p>
-          <span class="card-link" onclick="selectService('ATS Resume & Document Formatting')">Request this build →</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Portfolio / Case Studies -->
-  <section id="work">
-    <div class="container">
-      <div class="section-label">Proof of Work</div>
-      <h2 class="section-title">Recent Systems &amp; Deployments</h2>
-      <p class="section-desc">Built and deployed for real operational environments.</p>
-
-      <div class="cards-grid">
-        <div class="card">
-          <div class="card-top">
-            <h3>Automated Retail Billing &amp; Stock Engine</h3>
-            <span class="tag">RETAIL • PWA</span>
-          </div>
-          <p>Replaced manual register billing with instant item search, supplier invoice stock updates, low-stock alerts, and UPI QR checkout.</p>
-          <span class="metric-badge">✓ 3x Faster Checkout &amp; Zero Stock Mismatch</span>
-        </div>
-
-        <div class="card">
-          <div class="card-top">
-            <h3>Shift Login &amp; Break Compliance Tracker</h3>
-            <span class="tag">OPERATIONS • EXCEL + VBA</span>
-          </div>
-          <p>Automated raw login/logout export validation with instant discrepancy flags for multi-member operations teams.</p>
-          <span class="metric-badge">✓ 45 Mins Saved Per Shift Handover</span>
-        </div>
-
-        <div class="card">
-          <div class="card-top">
-            <h3>Corporate Operations &amp; Analyst Resume Suite</h3>
-            <span class="tag">CAREER BRANDING • ATS</span>
-          </div>
-          <p>Restructured multi-year operations profiles into clean, high-scoring ATS layouts for MNC interview shortlists.</p>
-          <span class="metric-badge">✓ 100% ATS Parse Compatibility</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Lead Capture Form -->
-  <section id="contact">
-    <div class="container">
-      <div class="section-label">Start a Conversation</div>
-      <h2 class="section-title">Tell Us What You Want Automated</h2>
-      <p class="section-desc">Send your requirement directly to WhatsApp for a fast response and timeline.</p>
-
-      <div class="form-box">
-        <form id="leadForm" onsubmit="sendToWhatsApp(event)">
-          <div class="form-group">
-            <label for="clientName">Your Name / Business Name</label>
-            <input type="text" id="clientName" class="form-control" placeholder="e.g., Rahul Sharma / Apex Traders" required />
-          </div>
-
-          <div class="form-group">
-            <label for="serviceType">Service Needed</label>
-            <select id="serviceType" class="form-control">
-              <option value="Python Data & Workflow Automation">Python Data &amp; Workflow Automation</option>
-              <option value="Excel & VBA Macro Automation">Excel &amp; VBA Macro Automation</option>
-              <option value="Custom Web App / Billing System">Custom Web App / Billing System</option>
-              <option value="ATS Resume & Document Formatting">ATS Resume &amp; Document Formatting</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="projectDetails">Brief Requirement</label>
-            <textarea id="projectDetails" rows="3" class="form-control" placeholder="Describe your current manual process or what you want built..." required></textarea>
-          </div>
-
-          <button type="submit" class="btn-primary" style="width: 100%;">
-            Send Project Brief on WhatsApp →
-          </button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <p>© 2026 <strong>AKORE TECH</strong> — Infinite Core Systems. Built for speed, precision, and reliability.</p>
-    </div>
-  </footer>
-
-  <script>
-    // Track ?ref= parameter from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const refSource = urlParams.get('ref') || 'Direct Website';
-
-    // Before vs After switcher data
-    const demoData = {
-      excel: {
-        beforeTitle: '2+ Hours Daily Copy-Pasting',
-        beforeDesc: 'Manual VLOOKUPs, broken formulas, and repetitive shift/attendance report formatting every single day.',
-        afterTitle: '1-Click Macro Execution (8 Secs)',
-        afterDesc: 'Automated VBA button cleans raw data, flags errors, and formats executive reports with zero manual effort.'
-      },
-      billing: {
-        beforeTitle: 'Manual Paper Bills & Stock Guesswork',
-        beforeDesc: 'Slow handwritten billing, missed reorder levels, and manual price updates from supplier invoices.',
-        afterTitle: 'Instant Search + UPI QR Billing',
-        afterDesc: 'Fast item search, automated stock updates, low-stock alerts, and instant digital receipts on mobile or PC.'
-      },
-      python: {
-        beforeTitle: 'Messy Multi-File CSV & PDF Exports',
-        beforeDesc: 'Manually merging dozens of spreadsheets and fixing duplicate rows every week.',
-        afterTitle: 'Automated Python Data Pipeline',
-        afterDesc: 'Single script cleans, validates, merges, and exports ready-to-use Excel reports in seconds.'
-      },
-      resume: {
-        beforeTitle: 'Cluttered 3-Page Generic CV',
-        beforeDesc: 'Unstructured formatting that gets rejected by automated ATS screening software.',
-        afterTitle: '95%+ ATS Parse Score',
-        afterDesc: 'Crisp, executive single-page layout tailored with exact role keywords and measurable metrics.'
-      }
-    };
-
-    function switchTab(key, btn) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('before-title').textContent = demoData[key].beforeTitle;
-      document.getElementById('before-desc').textContent = demoData[key].beforeDesc;
-      document.getElementById('after-title').textContent = demoData[key].afterTitle;
-      document.getElementById('after-desc').textContent = demoData[key].afterDesc;
+    // ==================== VOICE & CARTOON SOUND EFFECTS ====================
+    async function initAudio() {
+        try {
+            if (window.Tone && Tone.context.state !== "running") {
+                await Tone.start();
+            }
+        } catch (e) {}
     }
 
-    function selectService(serviceName) {
-      const select = document.getElementById('serviceType');
-      select.value = serviceName;
-      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    function stopAllAudio() {
+        stopWalkFootsteps();
+        if ("speechSynthesis" in window) {
+            window.speechSynthesis.cancel();
+        }
     }
 
-    function sendToWhatsApp(e) {
-      e.preventDefault();
-      const name = document.getElementById('clientName').value.trim();
-      const service = document.getElementById('serviceType').value;
-      const details = document.getElementById('projectDetails').value.trim();
-
-      const phone = '918928966120';
-      const message =
-        `Hello AKORE TECH! I'd like to discuss a project.\n\n` +
-        `*Name:* ${name}\n` +
-        `*Service:* ${service}\n` +
-        `*Details:* ${details}\n` +
-        `[Ref: ${refSource}]`;
-
-      const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-      window.open(waUrl, '_blank');
+    function stopExploreTour() {
+        isAutoTourRunning = false;
+        if (exploreTourTimer) {
+            clearTimeout(exploreTourTimer);
+            exploreTourTimer = null;
+        }
     }
-  </script>
-  <script data-goatcounter="https://akoretech.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+
+    function toggleSound() {
+        soundEnabled = !soundEnabled;
+        const icon = document.getElementById("sound-icon");
+        const label = document.getElementById("sound-label");
+        if (soundEnabled) {
+            initAudio();
+            if (icon) icon.textContent = "🔊";
+            if (label) label.textContent = "Sound ON";
+            playPopSound();
+        } else {
+            if (icon) icon.textContent = "🔇";
+            if (label) label.textContent = "Muted";
+            stopAllAudio();
+        }
+    }
+
+    function playPopSound() {
+        if (!soundEnabled || !window.Tone) return;
+        initAudio();
+        try {
+            const synth = new Tone.Synth({
+                oscillator: { type: "sine" },
+                envelope: { attack: 0.005, decay: 0.08, sustain: 0, release: 0.05 }
+            }).toDestination();
+            synth.volume.value = -10;
+            synth.triggerAttackRelease("G5", "32n");
+        } catch (e) {}
+    }
+
+    function playMagicFoundSound() {
+        if (!soundEnabled || !window.Tone) return;
+        initAudio();
+        try {
+            const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+            synth.volume.value = -8;
+            const now = Tone.now();
+            synth.triggerAttackRelease("C5", "16n", now);
+            synth.triggerAttackRelease("E5", "16n", now + 0.08);
+            synth.triggerAttackRelease("G5", "16n", now + 0.16);
+            synth.triggerAttackRelease("C6", "8n", now + 0.24);
+        } catch (e) {}
+    }
+
+    function startWalkFootsteps() {
+        stopWalkFootsteps();
+        if (!soundEnabled || !window.Tone) return;
+        initAudio();
+        let stepToggle = false;
+        walkInterval = setInterval(() => {
+            if (!soundEnabled) return;
+            try {
+                const mem = new Tone.MembraneSynth({
+                    pitchDecay: 0.02,
+                    octaves: 2,
+                    envelope: { attack: 0.002, decay: 0.06, sustain: 0 }
+                }).toDestination();
+                mem.volume.value = -14;
+                mem.triggerAttackRelease(stepToggle ? "C2" : "E2", "32n");
+                stepToggle = !stepToggle;
+            } catch (e) {}
+        }, 260);
+    }
+
+    function stopWalkFootsteps() {
+        if (walkInterval) {
+            clearInterval(walkInterval);
+            walkInterval = null;
+        }
+    }
+
+    function speakText(rawHtml, onFinished) {
+        if (!soundEnabled || !("speechSynthesis" in window)) {
+            if (typeof onFinished === "function") setTimeout(onFinished, 2400);
+            return;
+        }
+        try {
+            window.speechSynthesis.cancel();
+            const plain = rawHtml.replace(/<[^>]*>/g, "").replace(/😅/g, "").trim();
+            const utter = new SpeechSynthesisUtterance(plain);
+            utter.lang = "en-US";
+            utter.rate = 1.0;
+            utter.pitch = 1.06;
+            const voices = window.speechSynthesis.getVoices();
+            const preferred = voices.find(v => v.lang.startsWith("en") && (v.name.includes("Male") || v.name.includes("David") || v.name.includes("Google UK English Male") || v.name.includes("Alex")))
+                || voices.find(v => v.lang.startsWith("en"));
+            if (preferred) utter.voice = preferred;
+            if (typeof onFinished === "function") {
+                let done = false;
+                const finishOnce = () => {
+                    if (!done) {
+                        done = true;
+                        onFinished();
+                    }
+                };
+                utter.onend = finishOnce;
+                utter.onerror = finishOnce;
+                setTimeout(finishOnce, Math.max(3000, plain.length * 75));
+            }
+            window.speechSynthesis.speak(utter);
+        } catch (e) {
+            if (typeof onFinished === "function") setTimeout(onFinished, 2400);
+        }
+    }
+
+    function setAvatarPose(poseKey) {
+        const svg = document.getElementById("avatar-svg");
+        if (svg) svg.setAttribute("data-pose", poseKey);
+    }
+
+    function liftFloorBook(capId) {
+        document.querySelectorAll(".book-prop").forEach(b => b.classList.remove("lifted-book"));
+        if (capId) {
+            const targetBook = document.getElementById("book-" + capId);
+            if (targetBook) targetBook.classList.add("lifted-book");
+        }
+    }
+
+    function setSpeech(htmlText, options = {}) {
+        const { silent = false, onFinished = null } = options;
+        const bubble = document.getElementById("speech-bubble");
+        if (!bubble) return;
+        bubble.style.opacity = "0";
+        bubble.style.transform = "translateX(-32%) translateY(6px)";
+        setTimeout(() => {
+            bubble.innerHTML = htmlText;
+            bubble.style.opacity = "1";
+            bubble.style.transform = window.innerWidth <= 640 ? "translateX(-20%) translateY(0)" : "translateX(-32%) translateY(0)";
+            if (!silent) {
+                speakText(htmlText, onFinished);
+            } else {
+                stopAllAudio();
+            }
+        }, 140);
+    }
+
+    function moveCharacterTo(leftPercent, poseKey, onArrived, silent = false) {
+        const rig = document.getElementById("character-rig");
+        if (!rig) return;
+        rig.classList.remove("is-searching");
+        rig.classList.add("is-walking");
+        if (!silent) startWalkFootsteps();
+        setAvatarPose(poseKey);
+        rig.style.left = leftPercent + "%";
+
+        setTimeout(() => {
+            rig.classList.remove("is-walking");
+            stopWalkFootsteps();
+            if (typeof onArrived === "function") onArrived();
+        }, 1150);
+    }
+
+    function clearStationHighlights() {
+        const wa = document.getElementById("station-whatsapp");
+        const em = document.getElementById("station-email");
+        if (wa) wa.classList.remove("highlight");
+        if (em) em.classList.remove("highlight");
+    }
+
+    function renderChoiceMenuCard() {
+        document.getElementById("ui-container").innerHTML = `
+            <div class="adventure-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-bold text-xs uppercase tracking-wider">Step 2 of 3</span>
+                    <span class="text-xs font-medium text-slate-400">Choose your path</span>
+                </div>
+                <h2 class="font-display text-xl sm:text-2xl font-bold text-white mb-1">
+                    Welcome, ${escapeHtml(visitorName)}!
+                </h2>
+                <p class="text-sm text-slate-300 mb-4">Pick one of the options below to continue our tour:</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button onclick="chooseProjectPath()" class="btn-chunky bg-gradient-to-br from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white p-4 rounded-2xl text-left flex flex-col justify-between">
+                        <span class="text-2xl mb-1">💼</span>
+                        <span class="font-display font-bold text-base sm:text-lg block">I Have a Project / Task</span>
+                        <span class="text-xs text-blue-100 mt-1">Tell me what you need & I'll find the right solution</span>
+                    </button>
+
+                    <button onclick="chooseExplorePath()" class="btn-chunky bg-gradient-to-br from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 p-4 rounded-2xl text-left flex flex-col justify-between">
+                        <span class="text-2xl mb-1">🗺️</span>
+                        <span class="font-display font-bold text-base sm:text-lg block">Explore Website</span>
+                        <span class="text-xs text-slate-900 font-medium mt-1">Sit back while I walk you through everything we build</span>
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
+    function submitVisitorName(e) {
+        if (e && typeof e.preventDefault === "function") e.preventDefault();
+        stopExploreTour();
+        initAudio();
+        playPopSound();
+        const input = document.getElementById("visitor-name-input");
+        if (input) {
+            const raw = input.value.trim();
+            if (!raw) return;
+            visitorName = raw.charAt(0).toUpperCase() + raw.slice(1);
+        }
+        if (!visitorName) visitorName = "Guest";
+
+        liftFloorBook(null);
+        setAvatarPose("wave");
+        setSpeech(`Hello <strong>${escapeHtml(visitorName)}</strong>! Welcome to <strong>Akore Tech</strong>. How can I help you today?`);
+        renderChoiceMenuCard();
+    }
+
+    function chooseProjectPath(silent = false) {
+        stopExploreTour();
+        clearStationHighlights();
+        liftFloorBook(null);
+        setAvatarPose("think");
+        setSpeech(`Got it, <strong>${escapeHtml(visitorName)}</strong>! Select the task you need help with from the options below.`, { silent });
+
+        const cardsHtml = CAPABILITIES.map(cap => `
+            <button type="button" onclick="selectTaskForSearch('${cap.id}')"
+                class="text-left p-3 rounded-xl border border-slate-700 hover:border-cyan-400 hover:bg-slate-800/90 transition flex items-start gap-2.5 bg-slate-900/80">
+                <span class="text-xl mt-0.5">${cap.icon}</span>
+                <div>
+                    <div class="font-display font-bold text-sm text-white leading-snug">${cap.title}</div>
+                    <div class="text-xs text-slate-400 line-clamp-1 mt-0.5">${cap.shortDesc}</div>
+                </div>
+            </button>
+        `).join("");
+
+        document.getElementById("ui-container").innerHTML = `
+            <div class="adventure-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="px-2.5 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/40 text-cyan-300 font-bold text-xs uppercase">Select Your Requirement</span>
+                    <button onclick="backToChoices()" class="text-xs font-bold text-slate-400 hover:text-white underline">← Back</button>
+                </div>
+                <h2 class="font-display text-lg sm:text-xl font-bold text-white mb-3">What would you like Akore Tech to build?</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-56 overflow-y-auto pr-1 mb-3">
+                    ${cardsHtml}
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <input type="text" id="custom-task-note" value="${escapeHtml(customProjectNote)}"
+                        placeholder="Optional: Add a quick note about your requirement..."
+                        class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-600 bg-slate-900 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+        `;
+    }
+
+    function selectTaskForSearch(capId) {
+        stopExploreTour();
+        const noteEl = document.getElementById("custom-task-note");
+        if (noteEl) customProjectNote = noteEl.value.trim();
+
+        selectedCapability = CAPABILITIES.find(c => c.id === capId) || CAPABILITIES[0];
+
+        document.getElementById("ui-container").innerHTML = `
+            <div class="adventure-card text-center py-6">
+                <div class="inline-block animate-spin text-2xl mb-2">🔍</div>
+                <div class="font-display text-lg font-bold text-white">
+                    Digging through the messy book pile for "${selectedCapability.badge}"...
+                </div>
+            </div>
+        `;
+
+        setSpeech(`Hold on! Let me dig through this pile of books for <strong>${selectedCapability.badge}</strong>...`);
+
+        moveCharacterTo(18, "think", () => {
+            const rig = document.getElementById("character-rig");
+            const sparkles = document.getElementById("search-sparkles");
+            if (rig) rig.classList.add("is-searching");
+            if (sparkles) sparkles.style.display = "block";
+
+            setTimeout(() => {
+                if (rig) rig.classList.remove("is-searching");
+                if (sparkles) sparkles.style.display = "none";
+                playMagicFoundSound();
+                liftFloorBook(selectedCapability.id);
+                setAvatarPose("wave");
+                setSpeech(`Aha! Yes, I got what you want! Found the <strong>${selectedCapability.badge}</strong> book right under the mess!`);
+                showSolutionDetailCard(selectedCapability);
+            }, 1350);
+        });
+    }
+
+    function showSolutionDetailCard(cap) {
+        selectedCapability = cap;
+        const bullets = cap.highlights.map(h => `<li class="flex items-center gap-2 text-sm text-slate-200"><span class="text-emerald-400 font-bold">✔</span> ${h}</li>`).join("");
+
+        document.getElementById("ui-container").innerHTML = `
+            <div class="adventure-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="px-3 py-1 rounded-full ${cap.color} text-white font-bold text-xs uppercase tracking-wide">
+                        ${cap.icon} ${cap.badge}
+                    </span>
+                    <button onclick="chooseProjectPath(true)" class="text-xs font-bold text-slate-400 hover:text-white underline">
+                        ← Back to List
+                    </button>
+                </div>
+
+                <h2 class="font-display text-xl sm:text-2xl font-bold text-white mb-2">${cap.title}</h2>
+                <p class="text-sm text-slate-300 leading-relaxed mb-3">${cap.fullDesc}</p>
+
+                <ul class="space-y-1.5 bg-slate-900/90 border border-slate-700 rounded-xl p-3 mb-4">
+                    ${bullets}
+                </ul>
+
+                <div class="flex flex-col sm:flex-row gap-2.5">
+                    <button onclick="confirmSolutionChoice()" class="btn-chunky flex-1 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-display font-bold py-3 px-5 rounded-xl text-base">
+                        Yes, Let's Start This! →
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
+    function chooseExplorePath() {
+        stopExploreTour();
+        clearStationHighlights();
+        liftFloorBook(null);
+        exploreIndex = 0;
+        isAutoTourRunning = true;
+
+        document.getElementById("ui-container").innerHTML = `
+            <div class="adventure-card text-center py-6">
+                <div class="font-display text-lg font-bold text-cyan-300">
+                    Walking over to the studio floor...
+                </div>
+            </div>
+        `;
+
+        setSpeech(`Follow me, <strong>${escapeHtml(visitorName)}</strong>! Let me show you around.`);
+
+        moveCharacterTo(18, "shy", () => {
+            if (!isAutoTourRunning) return;
+            const messSpeech = `Oops... ignore the mess! Too much coding, zero time to clean up around here! 😅 Let me show you everything we build, one by one.`;
+            setSpeech(messSpeech, {
+                onFinished: () => {
+                    if (!isAutoTourRunning) return;
+                    exploreTourTimer = setTimeout(() => {
+                        if (isAutoTourRunning) runAutoExploreStep(0);
+                    }, 500);
+                }
+            });
+        });
+    }
+
+    function runAutoExploreStep(idx) {
+        if (!isAutoTourRunning) return;
+        exploreIndex = idx;
+        renderExploreSlide(false, () => {
+            if (!isAutoTourRunning) return;
+            if (exploreIndex < CAPABILITIES.length - 1) {
+                exploreTourTimer = setTimeout(() => {
+                    if (isAutoTourRunning) runAutoExploreStep(exploreIndex + 1);
+                }, 900);
+            } else {
+                isAutoTourRunning = false;
+                exploreTourTimer = setTimeout(() => {
+                    setSpeech(`That's everything in our studio! Pick any solution you like, or click <strong>Choose This Solution</strong> to get started.`);
+                }, 700);
+            }
+        });
+    }
+
+    function renderExploreSlide(silent = false, onSpeechDone = null) {
+        const cap = CAPABILITIES[exploreIndex];
+        selectedCapability = cap;
+        liftFloorBook(cap.id);
+        setAvatarPose(exploreIndex % 2 === 0 ? "wave" : "think");
+
+        const fullNarration = `Number ${exploreIndex + 1}: ${cap.title}. ${cap.fullDesc}`;
+        setSpeech(`<strong>${exploreIndex + 1} of ${CAPABILITIES.length} — ${cap.title}:</strong> ${cap.fullDesc}`, {
+            silent,
+            onFinished: onSpeechDone
+        });
+
+        const bullets = cap.highlights.map(h => `<li class="flex items-center gap-2 text-xs sm:text-sm text-slate-200"><span class="text-cyan-400 font-bold">★</span> ${h}</li>`).join("");
+        const statusBadge = isAutoTourRunning
+            ? `<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-bold text-[11px]">▶ Auto Guided Tour • ${exploreIndex + 1} / ${CAPABILITIES.length}</span>`
+            : `<span class="px-3 py-0.5 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 font-bold text-xs">Akore Tech Handbook • ${exploreIndex + 1} / ${CAPABILITIES.length}</span>`;
+
+        document.getElementById("ui-container").innerHTML = `
+            <div class="adventure-card">
+                <div class="flex items-center justify-between mb-2">
+                    ${statusBadge}
+                    <button onclick="backToChoices()" class="text-xs font-bold text-slate-400 hover:text-white underline">← Menu</button>
+                </div>
+
+                <div class="flex items-center gap-2.5 mb-2">
+                    <span class="text-2xl">${cap.icon}</span>
+                    <h2 class="font-display text-lg sm:text-xl font-bold text-white leading-tight">${cap.title}</h2>
+                </div>
+
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3">${cap.fullDesc}</p>
+
+                <ul class="space-y-1 bg-slate-900/90 border border-slate-700 rounded-xl p-3 mb-4">
+                    ${bullets}
+                </ul>
+
+                <div class="flex items-center justify-between gap-2">
+                    <button onclick="prevExploreSlide()" ${exploreIndex === 0 ? "disabled" : ""}
+                        class="btn-chunky px-4 py-2.5 rounded-xl font-display font-bold text-sm ${exploreIndex === 0 ? "bg-slate-800 text-slate-600 cursor-not-allowed" : "bg-slate-800 text-white hover:bg-slate-700"}">
+                        ← Prev
+                    </button>
+
+                    <button onclick="confirmSolutionChoice()" class="btn-chunky flex-1 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-display font-bold py-2.5 px-4 rounded-xl text-sm sm:text-base">
+                        Choose This Solution
+                    </button>
+
+                    <button onclick="nextExploreSlide()"
+                        class="btn-chunky px-4 py-2.5 rounded-xl font-display font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white">
+                        ${exploreIndex === CAPABILITIES.length - 1 ? "Finish" : "Next →"}
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
+    function prevExploreSlide() {
+        stopExploreTour();
+        if (exploreIndex > 0) {
+            exploreIndex--;
+            renderExploreSlide(true);
+        }
+    }
+
+    function nextExploreSlide() {
+        stopExploreTour();
+        if (exploreIndex < CAPABILITIES.length - 1) {
+            exploreIndex++;
+            renderExploreSlide(false);
+        } else {
+            confirmSolutionChoice();
+        }
+    }
+
+    function confirmSolutionChoice() {
+        stopExploreTour();
+        setAvatarPose("wave");
+        setSpeech(`Awesome! How would you like to send your project details—via <strong>WhatsApp</strong> or <strong>Email</strong>?`);
+
+        const taskTitle = selectedCapability ? selectedCapability.title : "Custom Software Solution";
+
+        document.getElementById("ui-container").innerHTML = `
+            <div class="adventure-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-bold text-xs uppercase">Step 3 of 3 • Final Step</span>
+                    <button onclick="backToChoices()" class="text-xs font-bold text-slate-400 hover:text-white underline">← Menu</button>
+                </div>
+
+                <h2 class="font-display text-xl font-bold text-white mb-1">
+                    Ready to launch: <span class="text-cyan-400">${taskTitle}</span>
+                </h2>
+                <p class="text-sm text-slate-300 mb-4">Where should I take you to send your project details?</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button onclick="goToStation('whatsapp')" class="btn-chunky bg-emerald-500 hover:bg-emerald-400 text-slate-950 p-4 rounded-2xl flex items-center justify-center gap-3 font-display font-bold text-lg">
+                        <span class="text-2xl">📲</span> Send via WhatsApp
+                    </button>
+
+                    <button onclick="goToStation('email')" class="btn-chunky bg-blue-600 hover:bg-blue-500 text-white p-4 rounded-2xl flex items-center justify-center gap-3 font-display font-bold text-lg">
+                        <span class="text-2xl">✉️</span> Send via Email
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
+    function goToStation(channel) {
+        clearStationHighlights();
+        const taskTitle = selectedCapability ? selectedCapability.title : "Custom Software Solution";
+        const noteLine = customProjectNote ? `\nAdditional Note: ${customProjectNote}` : "";
+
+        const messageBody =
+            `Hello Akore Tech,\n\n` +
+            `My name is ${visitorName}.\n` +
+            `I am interested in: ${taskTitle}.${noteLine}\n\n` +
+            `Please let me know the next steps to get started.`;
+
+        const waUrl = `https://wa.me/${AKORE_WHATSAPP_NUMBER}?text=${encodeURIComponent(messageBody)}`;
+        const mailUrl = `mailto:${AKORE_EMAIL_ADDRESS}?subject=${encodeURIComponent("Project Inquiry - " + taskTitle)}&body=${encodeURIComponent(messageBody)}`;
+
+        document.getElementById("ui-container").innerHTML = `
+            <div class="adventure-card text-center py-6">
+                <div class="font-display text-lg font-bold text-cyan-300">
+                    Walking over to the ${channel === "whatsapp" ? "WhatsApp" : "Email"} desk...
+                </div>
+            </div>
+        `;
+
+        setSpeech(`Follow me over to the <strong>${channel === "whatsapp" ? "WhatsApp" : "Email"}</strong> station!`);
+
+        moveCharacterTo(68, "wave", () => {
+            const stationEl = document.getElementById(channel === "whatsapp" ? "station-whatsapp" : "station-email");
+            if (stationEl) stationEl.classList.add("highlight");
+
+            setSpeech(`Here we are! You can send everything directly from here—your details are already filled in!`);
+
+            const actionBtn = channel === "whatsapp"
+                ? `<a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-chunky block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-display font-bold py-3.5 px-6 rounded-xl text-lg">
+                        📲 Open WhatsApp & Send Now →
+                   </a>`
+                : `<a href="${mailUrl}" class="btn-chunky block w-full text-center bg-blue-600 hover:bg-blue-500 text-white font-display font-bold py-3.5 px-6 rounded-xl text-lg">
+                        ✉️ Open Email & Send Now →
+                   </a>`;
+
+            const altLink = channel === "whatsapp"
+                ? `<button onclick="goToStation('email')" class="text-xs font-bold text-cyan-400 underline">Switch to Email instead</button>`
+                : `<button onclick="goToStation('whatsapp')" class="text-xs font-bold text-emerald-400 underline">Switch to WhatsApp instead</button>`;
+
+            document.getElementById("ui-container").innerHTML = `
+                <div class="adventure-card">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-bold text-xs uppercase">
+                            ${channel === "whatsapp" ? "WhatsApp Desk" : "Email Desk"}
+                        </span>
+                        ${altLink}
+                    </div>
+
+                    <h2 class="font-display text-xl font-bold text-white mb-2">You're all set, ${escapeHtml(visitorName)}!</h2>
+
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-300 whitespace-pre-line mb-4 font-medium">
+                        ${escapeHtml(messageBody)}
+                    </div>
+
+                    ${actionBtn}
+                </div>
+            `;
+        });
+    }
+
+    function backToChoices() {
+        stopExploreTour();
+        stopAllAudio();
+        clearStationHighlights();
+        liftFloorBook(null);
+        moveCharacterTo(11, "wave", () => {
+            setSpeech(`Hello <strong>${escapeHtml(visitorName)}</strong>! Welcome to <strong>Akore Tech</strong>. How can I help you today?`, { silent: true });
+        }, true);
+        renderChoiceMenuCard();
+    }
+
+    function restartJourney() {
+        stopExploreTour();
+        stopAllAudio();
+        visitorName = "";
+        selectedCapability = null;
+        customProjectNote = "";
+        exploreIndex = 0;
+        clearStationHighlights();
+        liftFloorBook(null);
+
+        moveCharacterTo(11, "wave", () => {
+            setSpeech(`Hi there! Welcome to <strong>Akore Tech</strong>. What's your name?`, { silent: true });
+        }, true);
+
+        document.getElementById("ui-container").innerHTML = `
+            <div id="card-name" class="adventure-card">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="px-2.5 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/40 text-cyan-300 font-bold text-xs uppercase tracking-wider">Step 1 of 3</span>
+                    <span class="text-xs font-medium text-slate-400">Let's get introduced</span>
+                </div>
+                <h2 class="font-display text-xl sm:text-2xl font-bold text-white mb-3">What should I call you?</h2>
+                <form onsubmit="submitVisitorName(event)" class="flex flex-col sm:flex-row gap-2.5">
+                    <input
+                        type="text"
+                        id="visitor-name-input"
+                        placeholder="Enter your name..."
+                        required
+                        autocomplete="off"
+                        class="flex-1 px-4 py-3 rounded-xl border border-slate-600 bg-slate-900/90 text-white placeholder-slate-400 font-semibold text-base focus:outline-none focus:border-cyan-400"
+                    >
+                    <button type="submit" class="btn-chunky bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-slate-950 font-display font-bold px-6 py-3 rounded-xl text-base">
+                        Continue →
+                    </button>
+                </form>
+            </div>
+        `;
+    }
+
+    function escapeHtml(str) {
+        return String(str || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+    }
+</script>
 </body>
 </html>
