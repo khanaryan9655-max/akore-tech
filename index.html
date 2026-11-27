@@ -6,6 +6,7 @@
     <title>AKORE TECH — Interactive Studio Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -82,32 +83,83 @@
         /* Back Wall Studio Sign */
         .wall-sign {
             position: absolute;
-            top: 12%;
+            top: 11%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(15, 23, 42, 0.88);
             backdrop-filter: blur(10px);
             border: 1.5px solid rgba(56, 189, 248, 0.4);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(37, 99, 235, 0.2);
             border-radius: 18px;
-            padding: 12px 30px;
+            padding: 10px 26px;
             text-align: center;
             z-index: 5;
+        }
+
+        /* ==================== AKORE TECH UPI QR PANEL ==================== */
+        .akore-qr-panel {
+            position: absolute;
+            top: 23%;
+            right: 5%;
+            width: 176px;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(56, 189, 248, 0.45);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+            border-radius: 18px;
+            padding: 10px;
+            text-align: center;
+            z-index: 8;
+        }
+
+        @media (max-width: 768px) {
+            .akore-qr-panel {
+                top: 24%;
+                right: 4%;
+                width: 132px;
+                padding: 8px;
+            }
+        }
+
+        #akore-qr-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            padding: 6px;
+            border-radius: 10px;
+            margin: 6px auto 4px;
+        }
+
+        #akore-qr-box img,
+        #akore-qr-box canvas {
+            width: 92px !important;
+            height: 92px !important;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            #akore-qr-box img,
+            #akore-qr-box canvas {
+                width: 70px !important;
+                height: 70px !important;
+            }
         }
 
         /* ==================== COMMUNICATION DESK STATIONS ==================== */
         .comm-stations {
             position: absolute;
-            top: 39%;
+            bottom: 39%;
             right: 5%;
             display: flex;
-            gap: 14px;
+            gap: 12px;
             z-index: 8;
         }
 
         @media (max-width: 768px) {
             .comm-stations {
                 top: 13%;
+                bottom: auto;
                 right: 4%;
                 gap: 8px;
             }
@@ -151,7 +203,6 @@
             }
         }
 
-        /* Realistic Cartoon Hardcover Book with Thick Spine & White Pages */
         .book-prop {
             position: absolute;
             width: 148px;
@@ -206,7 +257,6 @@
             z-index: 30;
         }
 
-        /* Funny Messy Props: Loose Papers, Coffee Mug & Paper Balls */
         .loose-paper {
             position: absolute;
             width: 54px;
@@ -261,39 +311,6 @@
             }
         }
 
-        .book-prop {
-            position: absolute;
-            border-radius: 7px;
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Fredoka', sans-serif;
-            font-size: 10px;
-            font-weight: 700;
-            color: #fff;
-            padding: 4px 9px;
-            letter-spacing: 0.4px;
-            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
-        }
-
-        .book-prop.lifted-book {
-            transform: translateY(-48px) scale(1.22) rotate(0deg) !important;
-            box-shadow: 0 0 24px rgba(56, 189, 248, 0.95), 0 10px 18px rgba(0, 0, 0, 0.7);
-            border-color: #ffffff;
-            z-index: 25;
-        }
-
-        .sparkle-burst {
-            position: absolute;
-            top: -28px;
-            left: 85px;
-            font-size: 22px;
-            display: none;
-            animation: popSparkle 0.6s ease-in-out infinite alternate;
-        }
-
         @keyframes popSparkle {
             0% { transform: scale(0.85) rotate(-8deg); }
             100% { transform: scale(1.2) rotate(8deg); }
@@ -345,7 +362,6 @@
             animation: idleBreathe 2.8s ease-in-out infinite;
         }
 
-        /* Strict Pose Visibility */
         .pose-wave, .pose-think, .pose-shy {
             display: none !important;
         }
@@ -502,16 +518,12 @@
     <!-- Top Brand Header -->
     <header class="relative z-40 flex items-center justify-between px-4 sm:px-8 py-4">
         <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-slate-900/90 border border-cyan-400/40 flex items-center justify-center shadow-lg shadow-cyan-500/20 p-1.5">
-                <svg viewBox="0 0 100 70" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M26 42 C10 42 10 22 26 22 C38 22 45 32 50 32 C55 32 62 22 74 22 C90 22 90 42 74 42 C62 42 55 32 50 32 C45 32 38 42 26 42 Z" fill="none" stroke="#38bdf8" stroke-width="6.5" stroke-linecap="round"/>
-                    <path d="M35 58 L50 12 L65 58" fill="none" stroke="#f8fafc" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <line x1="40" y1="43" x2="60" y2="43" stroke="#f8fafc" stroke-width="5.5" stroke-linecap="round"/>
-                </svg>
+            <div class="w-12 h-12 rounded-xl bg-slate-900/95 border border-cyan-400/50 flex items-center justify-center shadow-lg shadow-cyan-500/20 overflow-hidden">
+                <img src="./akore-logo.png" alt="Akore-tech Logo" class="w-full h-full object-cover" onerror="this.src='./image_de4014.jpg'; this.onerror=null;">
             </div>
             <div>
                 <h1 class="font-display font-bold text-lg sm:text-xl tracking-wide text-white leading-none">AKORE TECH</h1>
-                <p class="text-[10px] font-bold text-cyan-400 tracking-[0.18em] uppercase mt-1">INFINITE CORE SYSTEMS</p>
+                <p class="text-[10px] font-bold text-cyan-400 tracking-[0.18em] uppercase mt-1">INFINITE CORE SYSTEMS • +918928966120</p>
             </div>
         </div>
         <div class="flex items-center gap-2">
@@ -526,22 +538,25 @@
 
     <!-- Back Wall Studio Sign -->
     <div class="wall-sign hidden sm:block">
-        <div class="flex items-center justify-center gap-2.5">
-            <svg viewBox="0 0 100 70" class="w-8 h-6" xmlns="http://www.w3.org/2000/svg">
-                <path d="M26 42 C10 42 10 22 26 22 C38 22 45 32 50 32 C55 32 62 22 74 22 C90 22 90 42 74 42 C62 42 55 32 50 32 C45 32 38 42 26 42 Z" fill="none" stroke="#38bdf8" stroke-width="7" stroke-linecap="round"/>
-                <path d="M35 58 L50 12 L65 58" fill="none" stroke="#f8fafc" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-                <line x1="40" y1="43" x2="60" y2="43" stroke="#f8fafc" stroke-width="6" stroke-linecap="round"/>
-            </svg>
+        <div class="flex items-center justify-center gap-3">
+            <img src="./akore-logo.png" alt="Akore-tech" class="w-10 h-10 rounded-lg object-cover border border-cyan-400/40" onerror="this.src='./image_de4014.jpg'; this.onerror=null;">
             <div class="font-display text-2xl font-bold text-white tracking-tight">AKORE TECH</div>
         </div>
         <div class="text-[10px] font-bold uppercase tracking-[0.24em] text-cyan-400 mt-1">INFINITE CORE SYSTEMS</div>
+    </div>
+
+    <!-- Akore-tech UPI QR Recharge / Payment Card -->
+    <div class="akore-qr-panel" aria-label="Akore-tech UPI QR Code">
+        <div class="font-display text-xs sm:text-sm font-bold text-cyan-300">Akore-tech</div>
+        <div id="akore-qr-box"></div>
+        <div class="text-[10px] font-semibold text-slate-200 break-all mt-1">8928966120@idfcfirst</div>
+        <div class="text-[10px] text-emerald-400 font-bold mt-0.5">+918928966120</div>
     </div>
 
     <!-- Scattered Books & Files on the Floor (Non-Clickable Props) -->
     <div id="scattered-books-pile" aria-hidden="true">
         <div id="search-sparkles" class="sparkle-burst">✨🔍📚✨</div>
 
-        <!-- Funny Messy Room Details -->
         <div class="loose-paper" style="bottom: 62px; left: 8%; transform: rotate(-24deg);"></div>
         <div class="loose-paper" style="bottom: 12px; left: 48%; transform: rotate(31deg);"></div>
         <div class="loose-paper" style="bottom: 70px; left: 76%; transform: rotate(15deg);"></div>
@@ -550,7 +565,6 @@
         <div class="paper-ball" style="bottom: 18px; left: 88%;"></div>
         <div class="spilled-mug" style="bottom: 4px; left: 66%;">☕</div>
 
-        <!-- Wide-Spread Cartoon Hardcover Books -->
         <div id="book-inventory" class="book-prop bg-blue-600" style="bottom: 22px; left: 2%; transform: rotate(-14deg);">📦 INVENTORY & STOCK</div>
         <div id="book-excel" class="book-prop bg-emerald-600" style="bottom: 74px; left: 22%; transform: rotate(11deg);">📊 EXCEL & MACROS</div>
         <div id="book-billing" class="book-prop bg-amber-500 text-slate-950" style="bottom: 10px; left: 32%; transform: rotate(-6deg);">🧾 BILLING & POS</div>
@@ -578,7 +592,6 @@
         </div>
 
         <svg id="avatar-svg" data-pose="wave" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
-            <!-- LEGS (GREY CARGO PANTS & WHITE SNEAKERS) -->
             <g id="leg-left">
                 <path d="M74 214 L97 214 L95 288 L71 288 Z" fill="#cbd5e1" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
                 <rect x="69" y="242" width="12" height="22" rx="3" fill="#94a3b8" stroke="#0f172a" stroke-width="2.2"/>
@@ -595,7 +608,6 @@
                 <line x1="104" y1="299" x2="136" y2="299" stroke="#64748b" stroke-width="2"/>
             </g>
 
-            <!-- TORSO (BLACK BOMBER JACKET OVER BLACK TEE) -->
             <g id="torso">
                 <rect x="91" y="114" width="18" height="18" rx="6" fill="#f1c29b" stroke="#0f172a" stroke-width="2.8"/>
                 <path d="M74 128 L126 128 L130 215 L70 215 Z" fill="#090d16"/>
@@ -613,7 +625,6 @@
                 <circle cx="85" cy="191" r="2" fill="#94a3b8"/>
             </g>
 
-            <!-- POSE 1 ARMS: WAVING -->
             <g class="pose-wave">
                 <path d="M67 132 C54 152 52 182 56 202" fill="none" stroke="#1e293b" stroke-width="17" stroke-linecap="round"/>
                 <path d="M67 132 C54 152 52 182 56 202" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
@@ -636,7 +647,6 @@
                 </g>
             </g>
 
-            <!-- POSE 2 ARMS: THINKING -->
             <g class="pose-think">
                 <path d="M67 132 C50 152 52 174 68 184" fill="none" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
                 <path d="M67 132 C50 152 52 174 68 184" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
@@ -645,7 +655,6 @@
                 <circle cx="103" cy="118" r="8.5" fill="#f1c29b" stroke="#0f172a" stroke-width="2.6"/>
             </g>
 
-            <!-- POSE 3 ARMS: SHY HEAD-SCRATCH -->
             <g class="pose-shy">
                 <path d="M67 132 C55 154 54 182 58 202" fill="none" stroke="#1e293b" stroke-width="17" stroke-linecap="round"/>
                 <path d="M67 132 C55 154 54 182 58 202" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
@@ -654,7 +663,6 @@
                 <path d="M133 132 C158 122 154 88 130 78" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
             </g>
 
-            <!-- HEAD, HAIR, GLASSES, BEARD & EXPRESSIONS -->
             <g id="head-group">
                 <circle cx="65" cy="82" r="7.5" fill="#eab38a" stroke="#0f172a" stroke-width="2.6"/>
                 <circle cx="135" cy="82" r="7.5" fill="#eab38a" stroke="#0f172a" stroke-width="2.6"/>
@@ -672,7 +680,6 @@
                 <path d="M76 66 Q84 62 92 66" fill="none" stroke="#1e1612" stroke-width="3.2" stroke-linecap="round"/>
                 <path d="M108 66 Q116 62 124 66" fill="none" stroke="#1e1612" stroke-width="3.2" stroke-linecap="round"/>
 
-                <!-- Eyes -->
                 <g class="pose-wave pose-shy">
                     <circle cx="84" cy="76" r="4.5" fill="#ffffff"/>
                     <circle cx="84.5" cy="76" r="3" fill="#2563eb"/>
@@ -689,7 +696,6 @@
                     <circle cx="117.5" cy="78" r="3" fill="#2563eb"/>
                 </g>
 
-                <!-- Glasses -->
                 <g fill="rgba(56, 189, 248, 0.14)" stroke="#0f172a" stroke-width="3">
                     <rect x="72" y="68" width="24" height="16" rx="5"/>
                     <rect x="104" y="68" width="24" height="16" rx="5"/>
@@ -700,7 +706,6 @@
 
                 <path d="M100 76 L98 87 L103 88" fill="none" stroke="#c88d65" stroke-width="2.5" stroke-linecap="round"/>
 
-                <!-- Mouths -->
                 <path class="pose-wave" d="M90 101 Q100 110 110 101 Z" fill="#ffffff" stroke="#0f172a" stroke-width="2"/>
                 <path class="pose-think" d="M92 103 Q100 106 108 102" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"/>
                 <g class="pose-shy">
@@ -741,6 +746,22 @@
 <script>
     const AKORE_WHATSAPP_NUMBER = "918928966120";
     const AKORE_EMAIL_ADDRESS = "khanaryan9655@gmail.com";
+    const AKORE_UPI_ID = "8928966120@idfcfirst";
+    const AKORE_QR_NAME = "Akore-tech";
+    const AKORE_UPI_URI = `upi://pay?pa=${AKORE_UPI_ID}&pn=${encodeURIComponent(AKORE_QR_NAME)}&cu=INR`;
+
+    function renderAkoreQr() {
+        const box = document.getElementById("akore-qr-box");
+        if (!box || typeof QRCode === "undefined") return;
+        box.innerHTML = "";
+        new QRCode(box, {
+            text: AKORE_UPI_URI,
+            width: 100,
+            height: 100
+        });
+    }
+
+    window.addEventListener("DOMContentLoaded", renderAkoreQr);
 
     const CAPABILITIES = [
         {
@@ -838,7 +859,6 @@
     let exploreTourTimer = null;
     let isAutoTourRunning = false;
 
-    // ==================== VOICE & CARTOON SOUND EFFECTS ====================
     async function initAudio() {
         try {
             if (window.Tone && Tone.context.state !== "running") {
@@ -1229,7 +1249,6 @@
         liftFloorBook(cap.id);
         setAvatarPose(exploreIndex % 2 === 0 ? "wave" : "think");
 
-        const fullNarration = `Number ${exploreIndex + 1}: ${cap.title}. ${cap.fullDesc}`;
         setSpeech(`<strong>${exploreIndex + 1} of ${CAPABILITIES.length} — ${cap.title}:</strong> ${cap.fullDesc}`, {
             silent,
             onFinished: onSpeechDone
@@ -1437,6 +1456,7 @@
                 </form>
             </div>
         `;
+        renderAkoreQr();
     }
 
     function escapeHtml(str) {
